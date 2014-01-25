@@ -36,8 +36,7 @@ $ git clone https://github.com/solyaris/skebby_echo_server.git
 - Verify you already have alle required gems: 
 
 ```
-$ cd skebby_echo_server
-$ bundle install
+$ cd skebby_echo_server, bundle install
 ```
 
 
@@ -70,26 +69,25 @@ please visit ngrock home page, download sw and run in a new terminal:
 
 ```
 cd /your/path2/ngrok; ./ngrok 9393
+```
 
 ngrok will so give a public forward URL and display realtime http requests status:
 
-```
-Tunnel Status                 online
-Version                       1.6/1.5
-Forwarding                    http://a1b2c3d4.ngrok.com -> 127.0.0.1:9393
-Forwarding                    https://a1b2c3d4.ngrok.com -> 127.0.0.1:9393
-Web Interface                 127.0.0.1:4040
-# Conn                        27
-Avg Conn Time                 443.47ms
+
+	Tunnel Status                 online
+	Version                       1.6/1.5
+	Forwarding                    http://a1b2c3d4.ngrok.com -> 127.0.0.1:9393
+	Forwarding                    https://a1b2c3d4.ngrok.com -> 127.0.0.1:9393
+	Web Interface                 127.0.0.1:4040
+	# Conn                        27
+	Avg Conn Time                 443.47ms
 
 
-HTTP Requests
--------------
+	HTTP Requests
+	-------------
 
-POST /skebby/receivesms       200 OK
-POST /skebby/receivesms       200 OK
-
-```
+	POST /skebby/receivesms       200 OK
+	POST /skebby/receivesms       200 OK
 
 
 ## Step 4. Locally test your Skebby echo server!
