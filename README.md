@@ -13,16 +13,45 @@ Simple Ruby Sinatra HTTP/SMS echo server for [www.skebby.com](http://www.skebby.
 
 This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Application acting as "SMS echo server":
 
-1. An *end user send* a standard SMS to a *customer application* that supply a Skebby *receive SMS* service (each "receive sms" service can be identified by a mobile phone number + application *keyword*)
+- An *end user* send a standard SMS to a *customer application* that supply a Skebby *receive SMS* service (each "receive sms" service can be identified by a mobile phone number + application *keyword*)
 
-2. Skebby server forward that SMS through an HTTP POST/GET to a *customer application server* to be configured in Skebby through a preventive web configuration.
+- Skebby server forward that SMS through an HTTP POST/GET to a *customer application server* to be configured in Skebby through an initial web configuration.
 
-3. this project realize the *customer application server*, logging the received SMS data and 
+- this project realize the *customer application server*, logging the received SMS data and 
 
-4. sending back to mobile phone sender the same SMS message (echo).
+- sending back to mobile phone sender the same SMS message (echo).
 
 
-The main scope of project is just to quickly test and debug Skebby service features! 
+```
+ An end user, with a mobile phone
+
+        ^               | 1. send SMS message with text: "TEST69 Hello World!"
+        |               | 
+        |               |
+        |               v
+   .-----------------------------------------.
+   |                  SKEBBY                 |
+   |   SMS TX GATEWAY   -   SMS RX GATEWAY   |
+   |                                         |
+   .-----------------------------------------.
+        ^               |
+        |               | 2. HTTP POST http://a1b2c3d4.ngrok.com/skebby/receivesms
+        |               v
+        |  .----------------------------.
+        |  | Company Application Server | 
+        |  |   == this echo server      | 
+        |  |                            |
+        |  .------------+-----+---------.
+        |               |     |
+        |               |     +-----------> 3. log/store (on a database) received SMS data
+        |               |
+        +---------------+
+        4. echo back the SMS with text: "TEST69 Hello World!" 
+
+```
+
+
+BTW, The simple scope of project is just to quickly test and debug Skebby service features! 
 
 
 ## Step 1. Install stuff
@@ -62,7 +91,7 @@ specifying production environment, localhost and port 9393:
 ruby app.rb -o 127.0.0.1 -p 9393 -e production
 ```
 
-## Step 3. publish your local server on internet!
+## Step 3. publish your local dev server!
 
 I successfully used [ngrok](https://ngrok.com/) tunneling, reverse proxy:
 please visit ngrock home page, download sw and run in a new terminal:
@@ -151,7 +180,8 @@ ECHO Hello World!
 
 ## Licence
 
-Feel free to do what you want with that source code. It's free! BTW, a mention/feedback to me will be welcome!
+Feel free to do what you want with that source code. It's free! 
+BTW, a mention/feedback to me will be very welcome and star the project if you feel it useful!
 
 
 ## Special Thanks
@@ -160,10 +190,11 @@ Feel free to do what you want with that source code. It's free! BTW, a mention/f
 
 # Contacts
 
-### API Credentials request
-To get Skebby API credentials, please visit : [skebby website](http://www.skebby.com)
+### Skebby
+To register for your Skebby service, getting API credentials, please visit: [www.skebby.com](http://www.skebby.com).
 
 ### About me
-I develop mainly using Ruby (on Rails) when I do server side programming. I'm also a mountaineer (loving white mountains) and a musician/composer: I realize sort of ambient music you can listen and download at [http://about.me/solyaris](http://about.me/solyaris).
+I develop mainly using Ruby (on Rails) for server side programming. I'm also a music composer [http://about.me/solyaris](http://about.me/solyaris), and a mountaineer.
 
-Please let me know, criticize, contribute with ideas or code, feel free to write an e-mail with your thoughts! and of you like the project, a github STAR is always welcome :-) To get in touch about this github project and JOBs, e-mail me: [giorgio.robino@gmail.com](mailto:giorgio.robino@gmail.com)
+Please feel free to write an e-mail with your comments and jobs proposals are more than welcome: 
+e-mail: [giorgio.robino@gmail.com](mailto:giorgio.robino@gmail.com)
