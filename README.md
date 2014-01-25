@@ -130,8 +130,43 @@ curl -i -X GET  http://a1b2c3d4.ngrok.com
 ```
 
 To simulate an invocation by Skebby server after the rx of a SMS:
+
 ```
-curl -i -X POST  http://a1b2c3d4.ngrok.com/skebby/receivesms -F text='orsù, questa città è bella!'
+curl -i -X POST  http://a1b2c3d4.ngrok.com/skebby/receivesms \
+-F "sender=393334455999" \
+-F "receiver=393334455123" \
+-F "text=Hello World!" \
+-F "encoding=UTF-8" \
+-F "date=2014-01-25" \
+-F "time=12:02:28" \
+-F "timestamp=1390647748" \
+-F "smsType=standard"
+
+```
+
+BTW, echo server feed back a JSON response:
+
+```
+HTTP/1.1 200 OK
+Server: nginx/1.4.3
+Date: Sat, 25 Jan 2014 15:50:26 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 222
+Connection: keep-alive
+X-Content-Type-Options: nosniff
+
+{
+  "SMS RECEIVED": {
+    "sender": "393334455999",
+    "receiver": "393334455123",
+    "encoding": "UTF-8",
+    "date": "2014-01-25",
+    "time": "12:02:28",
+    "timestamp": "1390647748",
+    "smsType": "standard"
+  }
+}
+
 ```
 
 ## Step 5. End-to-end test your echo server!
@@ -169,7 +204,7 @@ ECHO Hello World!
 ## Release Notes
 
 
-### v.0.1.0
+### v.0.1.1
 - First release: 25 January 2014
 
 

@@ -1,8 +1,8 @@
-require 'json'
 require 'sinatra'
+require 'json'
 
-ABOUT = "SKEBBY SMS RX DEMO by giorgio.robino@gmail.com"
-
+ABOUT = "SKEBBY ECHO SERVER by giorgio.robino@gmail.com, \
+home page: https://github.com/solyaris/skebby_echo_server"
 
 mime_type :json, "application/json"
 
@@ -10,7 +10,7 @@ before do
   content_type :json 
 
   # set log level to debug
-  logger.level = 0
+  #logger.level = 0
 end  
 
 helpers do
@@ -43,12 +43,16 @@ end
 
 post "/skebby/receivesms" do
 
+  # debug info
   logger.debug "request header:"
   logger.debug request.inspect
   logger.debug "request body:"
   logger.debug request.body.read.inspect
 
-  logger.info params 
+  # log received SMS message
+  sms_params = "SMS RECEIVED: #{params.to_s}"
+
+  logger.info sms_params  
 
   # sender      Numero del mittente dell'SMS in forma internazionale senza + o 00, ad esempio: 393334455666
   # receiver    Il numero su cui e' arrivato l'SMS in forma internazionale senza + o 00, ad esempio: 393334455666
@@ -70,7 +74,7 @@ post "/skebby/receivesms" do
   logger.info params[:smsType]
 =end
 
-  to_json ( params )
+  to_json ( { "SMS RECEIVED".to_sym => params } )
 end
 
 
