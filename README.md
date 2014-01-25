@@ -180,7 +180,7 @@ TEST69 Hello World!
 ```
 
 - in few moments your Sinatra app will receive a HTTP POST request from Skebby server 
-(after your Skebby web configuration page, where you set the forward URL as: http://a1b2c3d4.ngrok.com/skebby/receivesms );  
+(after your Skebby web configuration page, where you set the forward URL as: http: //a1b2c3d4.ngrok.com/skebby/receivesms ).  
 - The HTTP request contain in *params* all data of SMS message 
 
 ```
@@ -229,7 +229,9 @@ BTW, a mention/feedback to me will be very welcome and star the project if you f
 To register for your Skebby service, getting API credentials, please visit: [www.skebby.com](http://www.skebby.com).
 
 ### About me
-I develop mainly using Ruby (on Rails) for server side programming. I'm also a music composer [http://about.me/solyaris](http://about.me/solyaris), and a mountaineer.
+I develop mainly using Ruby (on Rails) for server side programming. I'm also a music composer and a mountaineer.
 
-Please feel free to write an e-mail with your comments and jobs proposals are more than welcome: 
+home page: [http://about.me/solyaris](http://about.me/solyaris)
+
+Please feel free to write an e-mail with your comments and jobs proposals are more than welcome.
 e-mail: [giorgio.robino@gmail.com](mailto:giorgio.robino@gmail.com)
