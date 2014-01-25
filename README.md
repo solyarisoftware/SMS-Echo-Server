@@ -97,28 +97,44 @@ Now you can test locally calling a the service endpoint to receive SMSs.
 Just oo verify your echo server is up and running, open a terminal and enjoy:
 
 ```
-curl -i -X GET  http://localhost/
+curl -i -X GET  http://a1b2c3d4.ngrok.com
 ```
 
 To simulate an invocation by Skebby server after the rx of a SMS:
 ```
-curl -i -X POST  http://6f7fef5c.ngrok.com/skebby/receivesms -F text='orsù, questa città è bella!'
+curl -i -X POST  http://a1b2c3d4.ngrok.com/skebby/receivesms -F text='orsù, questa città è bella!'
 ```
 
 ## Step 5. End-to-end test your echo server!
 
 - Keep you mobile phone in your hand 
 - send a SMS to you Skebby *application number* (let say the mobile number: "339 99 41 52 52", 
-- write your test text message; assuming your *application keyword* is "TEST69", and you want to send  message "Hello World!", so please digit text:
+- write your test text message; assuming your *application keyword* is "TEST69", and you want to send  message "Hello World!", so please send the message text:
 
-	TEST69 Hello World!
+```
+TEST69 Hello World!
+```
 
-- in few moments your Sinatra app will receive a HTTP POST (as you configured in your Skebby web configuration page), and 
-- a SMS message with text:
-	
-	ECHO Hello World!
+- in few moments your Sinatra app will receive a HTTP POST request from Skebby server 
+(after your Skebby web configuration page, where you set the forward URL as: http://a1b2c3d4.ngrok.com/skebby/receivesms );  
+- The HTTP request contain in *params* all data of SMS message 
 
-will be forwarded back to your mobile phone number! 
+```
+params[:sender]
+params[:receiver]
+params[:text]
+params[:encoding]
+params[:date]
+params[:time]
+params[:timestamp]
+params[:smsType])
+```	
+
+- the echo server will log data with logger enabler and will forwarded back to your mobile phone number the message!
+
+```
+ECHO Hello World!
+```
 
 
 ## Release Notes
