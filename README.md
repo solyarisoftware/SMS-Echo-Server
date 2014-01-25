@@ -17,9 +17,9 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
 
 - Skebby server forward that SMS through an HTTP POST/GET to a *customer application server* to be configured in Skebby through an initial web configuration.
 
-- this project realize the *customer application server*, logging the received SMS data and 
+- this project realize the *Company Application Server*, logging the received SMS data and 
 
-- sending back to mobile phone sender the same SMS message (echo).
+- sending back to mobile phone sender a SMS message with pretty the same content (ECHO mode).
 
 
 ```
@@ -83,7 +83,7 @@ shotgun config.ru -o 127.0.0.1 -p 9393 -E development
 ```
 
 
-### run server in production
+### run server in "production mode"
 
 specifying production environment, localhost and port 9393:
 
