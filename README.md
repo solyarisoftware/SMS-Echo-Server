@@ -109,11 +109,16 @@ curl -i -X POST  http://6f7fef5c.ngrok.com/skebby/receivesms -F text='orsù, que
 
 - Keep you mobile phone in your hand 
 - send a SMS to you Skebby *application number* (let say the mobile number: "339 99 41 52 52", 
-- write your test text message; assuming your *application keyword* is "TEST69", and you want to send  message "Hello World!", so please digit "TEST69 Hello World!".
-- in few moments your Sinatra app will receive a HTTP POST (as you configured in your Skebby web configuration page), and 
-- a SMS message with text "ECHO Hello World!" will be forwarded back to your mobile phone number! 
+- write your test text message; assuming your *application keyword* is "TEST69", and you want to send  message "Hello World!", so please digit text:
 
----
+	TEST69 Hello World!
+
+- in few moments your Sinatra app will receive a HTTP POST (as you configured in your Skebby web configuration page), and 
+- a SMS message with text:
+	
+	ECHO Hello World!
+
+will be forwarded back to your mobile phone number! 
 
 
 ## Release Notes
