@@ -4,7 +4,6 @@ Skebby echo server
 Simple Ruby Sinatra HTTP echo server for www.skebby.com RX/TX SMS services.
 
 
-
 [skebby](http://www.skebby.com) is an Italian SMS gateway service provider with cheap prices and high quality service! 
 
 <p align="center">
@@ -30,7 +29,7 @@ The main scope of project is just to quickly test and debug Skebby service featu
 ## Release Notes
 
 
-### v.0.0.1
+### v.0.1.0
 - First release: 25 January 2014
 
 
