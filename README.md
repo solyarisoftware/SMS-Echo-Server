@@ -35,7 +35,7 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
    |                                           |
    .-------------------------------------------.
        ^                |
-       |                | 2. HTTP POST http://a1b2c3d4.ngrok.com/skebby/receivesms
+       |                | 2. HTTP POST http://a1b2c3d4.ngrok.com/echoserver/skebby
        |                v
        |   .----------------------------.   ^
        |   | Company Application Server |   |  
