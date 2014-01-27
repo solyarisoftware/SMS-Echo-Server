@@ -1,19 +1,63 @@
 require 'sinatra'
 require 'json'
 
-ABOUT = "SKEBBY ECHO SERVER by giorgio.robino@gmail.com, \
-home page: https://github.com/solyaris/skebby_echo_server"
+require_relative 'send_sms'
+
+
+ABOUT = "SMS Echo Server (using Skebby) \
+home page: https://github.com/solyaris/SMS-Echo-Server \
+e-mail: giorgio.robino@gmail.com"
+
+
+# set log level to debug
+#logger.level = 0
+
+# get username and password from Environment variables or as command line options
+# usage example:
+# ruby app.rb -o 127.0.0.1 -p 9393 -e production <your_skebby_username> <your_skebby_password>
+username = ENV['SKEBBY_USERNAME'] || ARGV[0]
+password = ENV['SKEBBY_PASSWORD'] || ARGV[1]
+  
+if username.nil? || password.nil?
+  STDERR.puts "environment variables not set !?"
+  exit
+else
+  puts "username: #{username}, password: #{password}"  
+end  
+
+
+
 
 mime_type :json, "application/json"
 
 before do
   content_type :json 
 
-  # set log level to debug
-  #logger.level = 0
+  #
+  # Initialize Skebby SMS Gateway
+  #
+  @gw = SkebbyGatewaySendSMS.new(username, password)
 end  
 
+
 helpers do
+
+  #
+  # supposing message is in format: <keyword><separator_char><text> 
+  # return a new message that substitute KEYWORD in the original message
+  # with ECHO KEYWORD <echo_keyword> <text>
+  #
+  # example:
+  #   echo_message "TEST123 Hello World!" # => "ECHO Hello World!"
+  #
+  def echo_message (original_message, echo_keyword="ECHO")
+    separator_index = original_message.index(/\s/)
+    lenght = original_message.length
+    text = original_message[separator_index+1, lenght-separator_index]
+
+    "#{echo_keyword} #{text}"
+  end
+
   def to_json( dataset, pretty_generate=true )
     if !dataset #.empty? 
       return no_data!
@@ -34,14 +78,16 @@ helpers do
 end
 
 
-#-------------------------------------------------
-
 get "/" do
   to_json ( { :message => ABOUT } )
 end
 
 
-post "/skebby/receivesms" do
+get "/echoserver/skebby" do
+  to_json ( { :message => 'sorry, to be done, use POST.' } )
+end
+
+post "/echoserver/skebby" do
 
   # debug info
   logger.debug "request header:"
@@ -54,6 +100,9 @@ post "/skebby/receivesms" do
 
   logger.info sms_params  
 
+  #
+  # From Skebby website:
+  #
   # sender      Numero del mittente dell'SMS in forma internazionale senza + o 00, ad esempio: 393334455666
   # receiver    Il numero su cui e' arrivato l'SMS in forma internazionale senza + o 00, ad esempio: 393334455666
   # text        Testo dell'SMS
@@ -63,18 +112,37 @@ post "/skebby/receivesms" do
   # timestamp   Il timestamp di arrivo dell'SMS per comodita' del programmatore passiamo tre formati differenti di data / ora
   # smsType     Il tipo di SMS ricevuto (standard o skebby)  
 
-=begin
-  logger.info params[:sender]
-  logger.info params[:receiver]
-  logger.info params[:text]
-  logger.info params[:encoding]
-  logger.info params[:date]
-  logger.info params[:time]
-  logger.info params[:timestamp]
-  logger.info params[:smsType]
-=end
+  # logger.info params[:sender]
+  # logger.info params[:receiver]
+  # logger.info params[:text]
+  # logger.info params[:encoding]
+  # logger.info params[:date]
+  # logger.info params[:time]
+  # logger.info params[:timestamp]
+  # logger.info params[:smsType]
 
-  to_json ( { "SMS RECEIVED".to_sym => params } )
+  #
+  # Send back to the sender an SMS echo message!
+  # 
+  message = echo_message params[:text]
+  recipient = [ params[:sender] ]
+
+  options = { charset: 'UTF-8', senderString: 'ECHO-SERVER' }
+  smstype = 'send_sms_classic' # 'send_sms_basic'
+
+
+  #
+  # call Skebby Gateway Send SMS API
+  # 
+  result = @gw.sendSMS(smstype, message, recipient, options)
+
+  if result
+    @gw.printResponse
+  else
+    puts "Error in the HTTP request"
+  end
+
+  to_json ( { "SMS RECEIVED".to_sym => params } ) # , "SMS SENT".to_sym => params
 end
 
 
