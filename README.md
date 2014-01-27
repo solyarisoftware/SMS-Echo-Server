@@ -32,7 +32,7 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
    .-------------------------------------------.
    |                                           |
    |         SKEBBY SMS GATEWAY SERVER         |
-	   |                                           |
+   |                                           |
    .-------------------------------------------.
        ^                |
        |                | 2. HTTP POST http://a1b2c3d4.ngrok.com/skebby/receivesms
@@ -50,21 +50,24 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
         via HTTP POST http://gateway.skebby.it/api/send/smseasy/advanced/http.php
 ```
 
-## Step 0. Create a Skebby account and purchase SMS services
+## Step 0. Create your Skebby account
 
 - Configure Username and Password
-Register at Skebby to get your <your_skebby_username> and <your_skebby_password>
+
+Register at Skebby to get your credentials:
+
+	- <your_skebby_username>
+	- <your_skebby_password>
 
 - Buy some TX/RX SMS Skebby services
+
 Please refer to Skebby website for all info about.
 
 - Set a POST URL Callback in your Skebby SMS receive configuration page:
 
 	<your_ngrok_url>/echoserver/skebby
 
-The callback URL will be something like:
-
-	https://a1b2c3d4.ngrok.com/echoserver/skebby
+The callback URL will be by example: `https://a1b2c3d4.ngrok.com/echoserver/skebby`
 
 
 ## Step 1. Install stuff
@@ -75,35 +78,35 @@ The callback URL will be something like:
 $ git https://github.com/solyaris/SMS-Echo-Server.git
 ```
 
-- Verify you already have alle required gems: 
+- Insatll all required gems: 
 
 ```
 $ cd SMS-Echo-Server; bundle install
 ```
 
 
-## Step 2. run sinatra server (in your localhost)
+## Step 2. run Sinatra server (in your localhost)
 
 
-### Set your Skebby credential as Environ Variables:
+### Set your Skebby credentials as environment variables:
 
 	$ export SKEBBY_USERNAME=<your_skebby_username>
 	$ export SKEBBY_PASSWORD=<your_skebby_password>
 
 
-### Run sinatra server in Developement environment
+### Run sinatra server in Developement
 
-To automatically reload rack development server I enjoyed [`shotgun`](https://github.com/rtomayko/shotgun)
+To automatically reload rack development server, when developing/debugging, I enjoyed [`shotgun`](https://github.com/rtomayko/shotgun)
 
-run shotgun, at port 9393:
+run shotgun, at port 9393 with command:
 
 ```
 shotgun config.ru -o 127.0.0.1 -p 9393 -E development
 ```
 
-### run server in "Production" environment
+### run server in "Production"
 
-specifying production environment, localhost and port 9393:
+You run on port 9393, with command:
 
 ```
 ruby app.rb -o 127.0.0.1 -p 9393 -e production
@@ -138,6 +141,7 @@ ngrok will so give a public forward URL and display realtime http requests statu
 
 
 NOTE
+
 [ngrok](https://ngrok.com/) it's a really excellent tool allowing developers to quickly publish any localhost application on internet through HTTP/HTTPS (and also TCP IP net applications!).  
 
 ngrok is also FREE and allow to reserve you personal immutable subdomains paying though a [pay-what-you-want service](https://ngrok.com/features) !
@@ -258,7 +262,7 @@ BTW, a mention/feedback to me will be very welcome and star the project if you f
 ## Special Thanks
 
 - [Alan Shreve](https://github.com/inconshreveable/ngrok), for his great tunneling, reverse proxy open source project [ngrok](https://ngrok.com/)
-- [Tommaso Visconti](https://github.com/tommyblue), for his code for send SMS [send_sms.rb](https://github.com/solyaris/skebby_echo_server/blob/master/send_sms.rb) and generally for his many useful posts about sw programming (by example [this one](http://www.tommyblue.it/2012/01/18/notifiche-sms-gratis-con-nagiosicinga-e-skebby)
+- [Tommaso Visconti](https://github.com/tommyblue), for his code for send SMS Ruby code [send_sms.rb](https://github.com/solyaris/skebby_echo_server/blob/master/send_sms.rb) and generally for his many useful posts about sw programming (by example [this one](http://www.tommyblue.it/2012/01/18/notifiche-sms-gratis-con-nagiosicinga-e-skebby) ).
 
 
 # Contacts
