@@ -118,8 +118,10 @@ $ cd SMS-Echo-Server; bundle install
 
 ### Set your Skebby credentials as environment variables:
 
+```bash
 	$ export SKEBBY_USERNAME=<your_skebby_username>
 	$ export SKEBBY_PASSWORD=<your_skebby_password>
+```
 
 
 ### Run sinatra server in Developement
@@ -128,7 +130,7 @@ To automatically reload rack development server, when developing/debugging, I en
 
 run shotgun, at port 9393 with command:
 
-```
+```bash
 shotgun config.ru -o 127.0.0.1 -p 9393 -E development
 ```
 
@@ -136,7 +138,7 @@ shotgun config.ru -o 127.0.0.1 -p 9393 -E development
 
 You run on port 9393, with command:
 
-```
+```bash
 ruby app.rb -o 127.0.0.1 -p 9393 -e production
 ```
 
@@ -145,7 +147,7 @@ ruby app.rb -o 127.0.0.1 -p 9393 -e production
 I'm very happy with great [ngrok](https://ngrok.com/) tunneling, reverse proxy:
 please visit ngrock home page, download sw and run in a new terminal:
 
-```
+```bash
 cd /your/path/to/ngrok; ./ngrok 9393
 ```
 
@@ -173,13 +175,13 @@ ngrok will so give a public forward URL and display realtime http requests statu
 ngrok is also FREE and allow to reserve you personal immutable subdomains paying though a [pay-what-you-want service](https://ngrok.com/features) !
 
 
-## Step 5. Locally test your Skebby echo server!
+## Step 5. Locally test the echo server!
 
 Now you can test locally calling a the service endpoint to receive SMSs.
 
 Just to verify your echo server is up and running, open a terminal and enjoy:
 
-```
+```bash
 curl -i -X GET  http://a1b2c3d4.ngrok.com
 ```
 
@@ -199,7 +201,7 @@ curl -i -X POST  https://a1b2c3d4.ngrok.com/echoserver/skebby \
 
 BTW, echo server feed back a JSON response:
 
-```json
+```
 HTTP/1.1 200 OK
 Server: nginx/1.4.3
 Date: Sat, 25 Jan 2014 15:50:26 GMT
@@ -222,7 +224,7 @@ X-Content-Type-Options: nosniff
 
 ```
 
-## Step 6. End-to-end test your echo server!
+## Step 6. End-to-end test: Send a SMS -> Receive the ECHO SMS!
 
 - Keep you mobile phone in your hand 
 - send a SMS to you Skebby *application number* (let say the mobile number: "339 99 41 52 52", 
@@ -237,14 +239,14 @@ TEST69 Hello World!
 - The HTTP request contain in *params* all data of SMS message 
 
 ```ruby
-params[:sender]
-params[:receiver]
-params[:text]
-params[:encoding]
-params[:date]
-params[:time]
-params[:timestamp]
-params[:smsType])
+    params[:sender]
+    params[:receiver]
+    params[:text]
+    params[:encoding]
+    params[:date]
+    params[:time]
+    params[:timestamp]
+    params[:smsType]
 ```	
 
 - the echo server will log data with logger enabler and will forwarded back to your mobile phone number the message!
@@ -256,14 +258,16 @@ ECHO Hello World!
 
 ## Discussion
 
-The simple scope of the echo server is just to quickly test and debug Skebby service features (SMS gateways Send and receive SMS APIs).
+The scope of that simple echo server is just to quickly test and debug Skebby service features (SMS gateways Send APIs and Receive SMS through the HTTP proxy behaviours).
 
-The further step could be to realize ANY sort of *Company Application Server* that elaborate SMSs received by *end users*. To develop a complex application example is out of scope of this small open-source project; feel free to CONTACT ME for your project as JOBS!
+A further step could be to realize ANY sort of *Company Application Server* that elaborate SMSs received by *end users*. 
+
+The develop of a complex application is out of scope of this small open-source project; so feel free to contact me for your project as job proposal!
 
 
 ## Release Notes
 
-### v.0.2.1
+### v.0.2.2
 - Prerelease: 28 January 2014
 - Send back message to mobile phone end user SMS sender (TX SMS via SMS gateway). 
 - fixed curl call example
@@ -274,7 +278,7 @@ The further step could be to realize ANY sort of *Company Application Server* th
 
 
 ## To do
-- remove any puts :-( and seriously log SMS TX Gateway API responses
+- rework SkebbyGatewaySendSMS class removing any puts (log instead)
 - better logging
 - manage GET requests
 - rethink about the client side usage of SMS TX Gateway API call  
@@ -282,22 +286,22 @@ The further step could be to realize ANY sort of *Company Application Server* th
 ## Licence
 
 Feel free to do what you want with my source code. It's free! 
-BTW, a mention/feedback to me will be very welcome and star the project if you feel it useful!
+BTW, a mention/feedback to me will be very welcome and STAR the project if you feel it useful!
 
 
 ## Special Thanks
 
 - [Alan Shreve](https://github.com/inconshreveable/ngrok), for his great tunneling, reverse proxy open source project [ngrok](https://ngrok.com/)
 - [Tommaso Visconti](https://github.com/tommyblue), for his code for send SMS Ruby code [send_sms.rb](https://github.com/solyaris/skebby_echo_server/blob/master/send_sms.rb) and generally for his many useful posts about sw programming (by example [this one](http://www.tommyblue.it/2012/01/18/notifiche-sms-gratis-con-nagiosicinga-e-skebby) ).
-- [Paolo Montrasio](https://github.com/pmontrasio), that forst of all talked to me about Skebby features.
+- [Paolo Montrasio](https://github.com/pmontrasio), that long time ago suggested to me Skebby features.
 
 # Contacts
 
 ### Skebby
-To create your account for Skebby services, getting API credentials (username, password) and buying a credit, please visit: [www.skebby.com](http://www.skebby.com).
+To create your account for Skebby services, getting API credentials (username, password) and purchase your SMS credit, please visit: [www.skebby.com](http://www.skebby.com).
 
 ### About me
-I develop mainly using Ruby (on Rails) for server side programming. I'm also a music composer and a mountaineer. Home page: [http://about.me/solyaris](http://about.me/solyaris)
+I develop using Ruby, when possible and also when is not possible. I'm also a music composer and a mountaineer. Home page: [http://about.me/solyaris](http://about.me/solyaris)
 
 Please feel free to write an e-mail with your comments and jobs proposals are more than welcome.
 E-mail: [giorgio.robino@gmail.com](mailto:giorgio.robino@gmail.com)
