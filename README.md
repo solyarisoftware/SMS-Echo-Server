@@ -81,7 +81,7 @@ For both scenarios, you have to configure the URL where you want to receive mess
 
 The callback URL will be by example: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://a1b2c3d4.ngrok.com/echoserver/skebby
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https:\/\/a1b2c3d4.ngrok.com/echoserver/skebby
 
 
 I done some tests here using the *shared mobile phone number + KEYWORD* approach.
