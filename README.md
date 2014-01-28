@@ -56,18 +56,47 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
 
 Register at Skebby to get your credentials:
 
-	- <your_skebby_username>
-	- <your_skebby_password>
+- <your_skebby_username>
+- <your_skebby_password>
 
-- Buy some TX/RX SMS Skebby services
+### Send SMS Skebby Services
 
-Please refer to Skebby website for all info about.
+Yo have to puchase a pack of some number of SMS to send SMS through the Skebby APIs. 
+Please refer to Skebby website for detailed info about commercial offers to send SMSs.
 
-- Set a POST URL Callback in your Skebby SMS receive configuration page:
+### Receive SMS Skebby Services
+
+To receive SMSs skebby propose to companies the purchase of: 
+
+1. *dedicated mobile phone number* where receive SMSs from end users
+
+or in alternative the purchase of: 
+
+2. *shared mobile phone number + KEYWORD* 
+
+Please refer to Skebby website for detailed info about commercial offers to receive SMSs.
+
+For both scenarios, you have to configure the URL where you want to receive messages configuring a POST URL Callback in your Skebby SMS receive configuration page:
 
 	<your_ngrok_url>/echoserver/skebby
 
-The callback URL will be by example: `https://a1b2c3d4.ngrok.com/echoserver/skebby`
+The callback URL will be by example: 
+
+	`https://a1b2c3d4.ngrok.com/echoserver/skebby`
+
+
+I done some tests here using the *shared mobile phone number + KEYWORD* approach.
+In this case end user send a SMSs to the Company Application with a message text with the format:   
+
+	<KEYWORD><separator_char><free_message_text>
+
+Where:
+
+- <KEYWORD> is the Application ID assigned in initial configuration phase in Skebby website. KEYWORD is not case sensitive and possibly shortest possible (to avoid to waste charcters).
+- <separator_char> a blank character to separate the keyword from the text payload.
+- <free_message_text> is the free text payload, that is the message text the user want to send to the application (please note that max length of number of chars of text payload is: 160 - keyword length - lenght separator).
+
+Let say your KEYWORD is "TEST69"; and shared number is "39 339 99 41 52 52", so to send a message "Hello World!" to the application, the end user have to send from his mobile phone a __Standard SMS__ to number "339 99 41 52 52" (please be careful to remove initial international prefix "39") with text: "TEST69 Hello World!""
 
 
 ## Step 1. Install stuff
@@ -78,7 +107,7 @@ The callback URL will be by example: `https://a1b2c3d4.ngrok.com/echoserver/skeb
 $ git https://github.com/solyaris/SMS-Echo-Server.git
 ```
 
-- Insatll all required gems: 
+- Install all required gems: 
 
 ```
 $ cd SMS-Echo-Server; bundle install
@@ -139,8 +168,6 @@ ngrok will so give a public forward URL and display realtime http requests statu
 	POST /skebby/receivesms       200 OK
 	POST /skebby/receivesms       200 OK
 
-
-NOTE
 
 [ngrok](https://ngrok.com/) it's a really excellent tool allowing developers to quickly publish any localhost application on internet through HTTP/HTTPS (and also TCP IP net applications!).  
 
@@ -207,7 +234,7 @@ TEST69 Hello World!
 ```
 
 - in few moments your Sinatra app will receive a HTTP POST request from Skebby server 
-(after your Skebby web configuration page, where you set the forward URL as: http: //a1b2c3d4.ngrok.com/skebby/receivesms ).  
+(after your Skebby web configuration page, where you set the forward URL as: http: //a1b2c3d4.ngrok.com/echoserver/skebby ).  
 - The HTTP request contain in *params* all data of SMS message 
 
 ```
@@ -237,11 +264,11 @@ The further step could be to realize ANY sort of *Company Application Server* th
 
 ## Release Notes
 
-### v.0.2.0
-- Prerelease: 27 January 2014
+### v.0.2.1
+- Prerelease: 28 January 2014
 - Send back message to mobile phone end user SMS sender (TX SMS via SMS gateway). 
 - fixed curl call example
-- Better explained in this readme the data flow 
+- Data flow better explained in this readme
 
 ### v.0.1.1
 - First release: 25 January 2014
@@ -263,7 +290,7 @@ BTW, a mention/feedback to me will be very welcome and star the project if you f
 
 - [Alan Shreve](https://github.com/inconshreveable/ngrok), for his great tunneling, reverse proxy open source project [ngrok](https://ngrok.com/)
 - [Tommaso Visconti](https://github.com/tommyblue), for his code for send SMS Ruby code [send_sms.rb](https://github.com/solyaris/skebby_echo_server/blob/master/send_sms.rb) and generally for his many useful posts about sw programming (by example [this one](http://www.tommyblue.it/2012/01/18/notifiche-sms-gratis-con-nagiosicinga-e-skebby) ).
-
+- [Paolo Montrasio](https://github.com/pmontrasio), that forst of all talked to me about Skebby features.
 
 # Contacts
 
