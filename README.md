@@ -22,11 +22,11 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
 
 ```
 
-     An end user, with a mobile phone
+     An end user, with a mobile phone 
                              
-       ^                | 1. send SMS message with text: "TEST69 Hello World!"
+       ^                | 1. send a Standard SMS with text: "TEST69 Hello World!"
        |                | 
-       | 6. receive echo SMS with text: "ECHO Hello World!"
+       | 6. receive back an echo SMS with text: "ECHO Hello World!"
        |                | 
        |                v
    .-------------------------------------------.
@@ -39,15 +39,15 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
        |                v
        |   .----------------------------.   ^
        |   | Company Application Server |   |  
-       |   |   == this echo server      |   | 3.JSON response (for test/debug purposes)
+       |   |   == this echo server      |   |
        |   |                            |   |
        |   .----+-------------+----+----.   |
-       |        |             |    |        |
+       |        |             |    |        |  4.JSON response (for test/debug purposes)
        |        |             |    +--------+
-       |        |             +-------> 4. log/store (on a database) received SMS data
+       |        |             +-------> 3. log/store (on a database) received SMS data
        +--------+
-     5. echo back a SMS 
-        via HTTP POST http://gateway.skebby.it/api/send/smseasy/advanced/http.php
+     5. echo back a SMS ( via HTTP POST http://gateway.skebby.it/api/send/... )
+
 ```
 
 ## Step 0. Create your Skebby account
@@ -56,8 +56,8 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
 
 Register at Skebby to get your credentials:
 
-- <your_skebby_username>
-- <your_skebby_password>
+&nbsp;&nbsp;&nbsp;&nbsp;<your_skebby_username>
+&nbsp;&nbsp;&nbsp;&nbsp;<your_skebby_password>
 
 ### Send SMS Skebby Services
 
@@ -78,17 +78,17 @@ Please refer to Skebby website for detailed info about commercial offers to rece
 
 For both scenarios, you have to configure the URL where you want to receive messages configuring a POST URL Callback in your Skebby SMS receive configuration page:
 
-	<your_ngrok_url>/echoserver/skebby
+&nbsp;&nbsp;&nbsp;&nbsp;<your_ngrok_url>/echoserver/skebby
 
 The callback URL will be by example: 
 
-	`https://a1b2c3d4.ngrok.com/echoserver/skebby`
+&nbsp;&nbsp;&nbsp;&nbsp;`https://a1b2c3d4.ngrok.com/echoserver/skebby`
 
 
 I done some tests here using the *shared mobile phone number + KEYWORD* approach.
 In this case end user send a SMSs to the Company Application with a message text with the format:   
 
-	<KEYWORD><separator_char><free_message_text>
+&nbsp;&nbsp;&nbsp;&nbsp;<KEYWORD><separator_char><free_message_text>
 
 Where:
 
@@ -96,7 +96,7 @@ Where:
 - <separator_char> a blank character to separate the keyword from the text payload.
 - <free_message_text> is the free text payload, that is the message text the user want to send to the application (please note that max length of number of chars of text payload is: 160 - keyword length - lenght separator).
 
-Let say your KEYWORD is "TEST69"; and shared number is "39 339 99 41 52 52", so to send a message "Hello World!" to the application, the end user have to send from his mobile phone a __Standard SMS__ to number "339 99 41 52 52" (please be careful to remove initial international prefix "39") with text: "TEST69 Hello World!""
+Let say your KEYWORD is "TEST69"; and shared number is "39 339 99 41 52 52", so to send a message "Hello World!" to the application, the end user have to send from his mobile phone a __Standard SMS__ to number "339 99 41 52 52" (please be careful to remove initial international prefix "39") with text: "TEST69 Hello World!".
 
 
 ## Step 1. Install stuff
