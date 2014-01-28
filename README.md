@@ -56,8 +56,8 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
 
 Register at Skebby to get your credentials:
 
-&nbsp;&nbsp;&nbsp;&nbsp;<your_skebby_username>
-&nbsp;&nbsp;&nbsp;&nbsp;<your_skebby_password>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<your_skebby_username\>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<your_skebby_password\>
 
 ### Send SMS Skebby Services
 
@@ -78,17 +78,17 @@ Please refer to Skebby website for detailed info about commercial offers to rece
 
 For both scenarios, you have to configure the URL where you want to receive messages configuring a POST URL Callback in your Skebby SMS receive configuration page:
 
-&nbsp;&nbsp;&nbsp;&nbsp;<your_ngrok_url>/echoserver/skebby
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<your_ngrok_url\>/echoserver/skebby
 
 The callback URL will be by example: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;`https://a1b2c3d4.ngrok.com/echoserver/skebby`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`https://a1b2c3d4.ngrok.com/echoserver/skebby`
 
 
 I done some tests here using the *shared mobile phone number + KEYWORD* approach.
 In this case end user send a SMSs to the Company Application with a message text with the format:   
 
-&nbsp;&nbsp;&nbsp;&nbsp;<KEYWORD><separator_char><free_message_text>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<KEYWORD><separator_char><free_message_text>
 
 Where:
 
