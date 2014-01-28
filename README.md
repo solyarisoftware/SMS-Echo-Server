@@ -3,18 +3,15 @@ SMS Echo Server (using Skebby)
 
 Simple Ruby Sinatra SMS Echo Server, using [www.skebby.com](http://www.skebby.com) SMS Gateways services.
 
-[www.skebby.com](http://www.skebby.com) is an Italian SMS gateway service provider with cheap prices and high quality services! 
+Skebby is an Italian SMS gateway service provider with cheap prices and high quality services! 
 
-<p align="center">
-  <img src="http://static.skebby.it/s/i/sms-gratis-business.png" alt="skebby logo">
-</p>
+<p align="center"><img src="http://static.skebby.it/s/i/sms-gratis-business.png" alt="skebby logo"></p>
 
+This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Application acting as "SMS echo server", using Skebby services/APis behind the scenes:
 
-This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Application acting as "SMS echo server":
+- An *end User* send a standard SMS to a *Customer Application* that supply a Skebby *Receive SMS* service (each "receive sms" service can be identified by a mobile phone number + application *keyword*)
 
-- An *end user* send a standard SMS to a *customer application* that supply a Skebby *Receive SMS* service (each "receive sms" service can be identified by a mobile phone number + application *keyword*)
-
-- Skebby server forward that SMS through an HTTP POST/GET to a *Custom(er) Application Server* to be configured in Skebby through an initial web configuration.
+- Skebby server forward that SMS through an HTTP POST/GET to a *Customer Application Server* to be configured in Skebby through an initial web configuration.
 
 - This project realize the *Company Application Server*, log the received SMS data (RX) and 
 
@@ -67,27 +64,26 @@ Please refer to Skebby website for detailed info about commercial offers to send
 
 To receive SMSs skebby propose to companies the purchase of: 
 
-1. *dedicated mobile phone number* where receive SMSs from end users
+- *dedicated mobile phone number* where receive SMSs from end users
 
 or in alternative the purchase of: 
 
-2. *shared mobile phone number + KEYWORD* 
+- *shared mobile phone number + KEYWORD* 
 
 Please refer to Skebby website for detailed info about commercial offers to receive SMSs.
 
 For both scenarios, you have to configure the URL where you want to receive messages configuring a POST URL Callback in your Skebby SMS receive configuration page:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<your_ngrok_url\>/echoserver/skebby
+<p align="center">\<your_ngrok_url\>/echoserver/skebby</p>
 
 The callback URL will be by example: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https: // a1b2c3d4.ngrok.com /echoserver/skebby
-
+<p align="center">https://a1b2c3d4.ngrok.com /echoserver/skebby</p>
 
 I done some tests here using the *shared mobile phone number + KEYWORD* approach.
 In this case end user send a SMSs to the Company Application with a message text with the format:   
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<KEYWORD\>\<separator_char\>\<free_message_text\>
+<p align="center">\<KEYWORD\>\<separator_char\>\<free_message_text\></p>
 
 Where:
 
@@ -95,8 +91,9 @@ Where:
 - <separator_char> a blank character to separate the keyword from the text payload.
 - <free_message_text> is the free text payload, that is the message text the user want to send to the application (please note that max length of number of chars of text payload is: 160 - keyword length - lenght separator).
 
-Let say your KEYWORD is "TEST69"; and shared number is "39 339 99 41 52 52", so to send a message "Hello World!" to the application, the end user have to send from his mobile phone a __Standard SMS__ to number "339 99 41 52 52" (please be careful to remove initial international prefix "39") with text: "TEST69 Hello World!".
+Let say your KEYWORD is "TEST69" and shared number is "39 339 99 41 52 52", so to send a message "Hello World!" to the application, the end user have to send from his mobile phone a *Standard SMS* to number "339 99 41 52 52" (please be careful to remove initial international prefix, e.g. for Italy: "39") with text: 
 
+<p align="center">"TEST69 Hello World!"</p>
 
 ## Step 2. Install stuff
 
@@ -112,7 +109,6 @@ $ git https://github.com/solyaris/SMS-Echo-Server.git
 $ cd SMS-Echo-Server; bundle install
 ```
 
-
 ## Step 3. run Sinatra server (in your localhost)
 
 
@@ -122,7 +118,6 @@ $ cd SMS-Echo-Server; bundle install
 	$ export SKEBBY_USERNAME=<your_skebby_username>
 	$ export SKEBBY_PASSWORD=<your_skebby_password>
 ```
-
 
 ### Run sinatra server in Developement
 
