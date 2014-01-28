@@ -2,7 +2,6 @@ SMS Echo Server (using Skebby)
 ==============================
 
 Simple Ruby Sinatra SMS Echo Server, using [www.skebby.com](http://www.skebby.com) SMS Gateways services.
-
 Skebby is an Italian SMS gateway service provider with cheap prices and high quality services! 
 
 <p align="center"><img src="http://static.skebby.it/s/i/sms-gratis-business.png" alt="skebby logo"></p>
@@ -13,10 +12,7 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
 
 1. An *end User* send a "standard SMS" to a *Customer Application* that supply a Skebby *Receive SMS* service (each *Receive SMS* service can be identified by an assigned mobile phone number + Customer *keyword*)
 
-2. Skebby server forward that SMS through an HTTP POST ( or GET) to a *Customer Application Server* to be configured in Skebby through an initial web configuration.
-
-This project realize a simple example of that *Company Application Server*.
-The Echo Server simply log the received SMS data and 
+2. Skebby server forward that SMS through an HTTP POST ( or GET) to a *Customer Application Server* to be configured in Skebby through an initial web configuration. This project realize a simple example of that *Company Application Server*. The Echo Server simply log the received SMS data and 
 
 3. send back (TX) to mobile phone sender number a SMS message with pretty the same text payload (ECHO mode).
 
@@ -66,9 +62,9 @@ Please refer to Skebby website for detailed info about commercial offers to send
 
 To receive SMSs skebby propose to companies the purchase of: 
 
-- *DEDICATED NUMBER* where receive SMSs from end users
+- *DEDICATED NUMBER*
 
-or in alternative the purchase of: 
+where receive SMSs from end users, or in alternative the purchase of: 
 
 - *SHARED NUMBER + KEYWORD* 
 
@@ -76,11 +72,11 @@ Please refer to Skebby website for detailed info about commercial offers to rece
 
 For both scenarios, you have to configure the URL where you want to receive messages configuring a POST URL callback in your Skebby SMS receive configuration page:
 
+```
 \<your_ngrok_url\>/echoserver/skebby
+```
 
-The callback URL will be by example: 
-
-https: // a1b2c3d4.ngrok.com/echoserver/skebby
+The callback URL will be by example: https: // a1b2c3d4.ngrok.com/echoserver/skebby
 
 I done some tests here using the *shared mobile phone number + KEYWORD* approach.
 In this case end user send a SMSs to the Company Application with a message text with the format:   
@@ -97,7 +93,9 @@ Where:
 
 - `<free_message_text>` is the free text payload, that is the message text the user want to send to the application (please note that max length of number of chars of text payload is: 160 - keyword length - lenght separator).
 
-Let say your KEYWORD is "TEST69" and shared number is "39 339 99 41 52 52", so to send a message "Hello World!" to the application, the end user have to send from his mobile phone a *Standard SMS* to number "339 99 41 52 52" (please be careful to remove initial international prefix, e.g. for Italy: "39") with text: 
+Example:
+
+Let say your keyword> is: "TEST69" and shared number is: "39 339 99 41 52 52", so to send a message "Hello World!" to the Application, the end user have to send from his mobile phone a *Standard SMS* to number "339 99 41 52 52" (please be careful to remove initial international prefix, e.g. for Italy: "39") with text: 
 
 ```
 TEST69 Hello World!
@@ -145,7 +143,7 @@ You run on port 9393, with command:
 ruby app.rb -o 127.0.0.1 -p 9393 -e production
 ```
 
-## Step 4. publish your local dev server!
+## Step 4. publish your local dev server with ngrok!
 
 I'm very happy with great [ngrok](https://ngrok.com/) tunneling, reverse proxy:
 please visit ngrock home page, download sw and run in a new terminal:
@@ -155,7 +153,6 @@ cd /your/path/to/ngrok; ./ngrok 9393
 ```
 
 ngrok will so give a public forward URL and display realtime http requests status:
-
 
 	Tunnel Status                 online
 	Version                       1.6/1.5
@@ -171,7 +168,6 @@ ngrok will so give a public forward URL and display realtime http requests statu
 
 	POST /skebby/receivesms       200 OK
 	POST /skebby/receivesms       200 OK
-
 
 [ngrok](https://ngrok.com/) it's a really excellent tool allowing developers to quickly publish any localhost application on internet through HTTP/HTTPS (and also TCP IP net applications!).  
 
@@ -205,7 +201,6 @@ curl -i -X POST  https://a1b2c3d4.ngrok.com/echoserver/skebby \
 BTW, echo server feed back a JSON response:
 
 ```
-
 HTTP/1.1 200 OK
 Server: nginx/1.4.3
 Date: Tue, 28 Jan 2014 17:34:51 GMT
@@ -233,10 +228,9 @@ X-Content-Type-Options: nosniff
   }
 }
 
-
 ```
 
-## Step 6. End-to-end test: Send a SMS -> Receive the ECHO SMS!
+## Step 6. End-to-end test: SMS TX -> ECHO SMS RX!
 
 - Keep you mobile phone in your hand 
 - send a SMS to you Skebby *application number* (let say the mobile number: "339 99 41 52 52", 
@@ -249,7 +243,6 @@ TEST69 Hello World!
 - in few moments your Sinatra app will receive a HTTP POST request from Skebby server 
 (after your Skebby web configuration page, where you set the forward URL as: http: //a1b2c3d4.ngrok.com/echoserver/skebby ).  
 - The HTTP request contain in *params* all data of SMS message, transmitted by Skebby server. 
-
 - This echo server log data and forwarded back to your mobile phone number the message:
 
 ```
@@ -257,13 +250,27 @@ ECHO Hello World!
 ```
 
 
-## Discussion
+## Notes
+
+### Bidirectional SMS Services (end users <-> application server)
 
 The scope of that simple echo server is just to quickly test and debug Skebby service features (SMS gateways Send APIs and Receive SMS through the HTTP proxy behaviours).
 
 A further step could be to realize ANY sort of *Company Application Server* that elaborate SMSs received by *end users*. 
 
 The develop of a complex application is out of scope of this small open-source project; so feel free to contact me for your project as job proposal!
+
+
+### About Skebby Services
+
+Pros: 
+I enjoyed the very fast and reliable end-to-end delivery time elapseds using `send_sms_classic` SMSs: usually the end-to-end echo back take no more than few seconds. great!
+I got worst performances sending cheapest `send_sms_basic` SMSs (elapsed times start from half a minute to 5/15 minutes).
+
+Minus:
+Website is pretty wel done but there are some areas of emprovements in dpcumentation of some behaviours (by example the format of message with KEYWORD (the need of a separator) is not clear in Skebby website).
+
+All in all my feedback about Skebby services are positive!
 
 
 ## Release Notes
