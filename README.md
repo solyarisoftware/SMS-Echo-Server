@@ -268,7 +268,7 @@ I enjoyed the very fast and reliable end-to-end delivery time elapseds using `se
 I got worst performances sending cheapest `send_sms_basic` SMSs (elapsed times start from half a minute to 5/15 minutes).
 
 Minus:
-Website is pretty wel done but there are some areas of emprovements in dpcumentation of some behaviours (by example the format of message with KEYWORD (the need of a separator) is not clear in Skebby website).
+Website (registration/configuration/etc.) is pretty well done but there are some areas of improvements in organization of "storyboards" (you can find a lot of info but you lost yourself easely). Last but not least, documentation of some behaviours is not too clear (by example the format of message with KEYWORD (the need of a separator) is not correctly explained in Skebby website). Not a big problem after some debug :-)
 
 All in all my feedback about Skebby services are positive!
 
