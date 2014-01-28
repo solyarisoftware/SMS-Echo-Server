@@ -57,7 +57,6 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
 Register at Skebby to get your credentials:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<your_skebby_username\>
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<your_skebby_password\>
 
 ### Send SMS Skebby Services
