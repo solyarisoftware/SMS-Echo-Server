@@ -50,7 +50,7 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
 
 ```
 
-## Step 0. Create your Skebby account
+## Step 1. Create your Skebby account
 
 - Configure Username and Password
 
@@ -81,7 +81,7 @@ For both scenarios, you have to configure the URL where you want to receive mess
 
 The callback URL will be by example: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https:\/\/a1b2c3d4.ngrok.com/echoserver/skebby
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https: // a1b2c3d4.ngrok.com /echoserver/skebby
 
 
 I done some tests here using the *shared mobile phone number + KEYWORD* approach.
@@ -98,7 +98,7 @@ Where:
 Let say your KEYWORD is "TEST69"; and shared number is "39 339 99 41 52 52", so to send a message "Hello World!" to the application, the end user have to send from his mobile phone a __Standard SMS__ to number "339 99 41 52 52" (please be careful to remove initial international prefix "39") with text: "TEST69 Hello World!".
 
 
-## Step 1. Install stuff
+## Step 2. Install stuff
 
 - Install source code: 
 
@@ -113,7 +113,7 @@ $ cd SMS-Echo-Server; bundle install
 ```
 
 
-## Step 2. run Sinatra server (in your localhost)
+## Step 3. run Sinatra server (in your localhost)
 
 
 ### Set your Skebby credentials as environment variables:
@@ -140,7 +140,7 @@ You run on port 9393, with command:
 ruby app.rb -o 127.0.0.1 -p 9393 -e production
 ```
 
-## Step 3. publish your local dev server!
+## Step 4. publish your local dev server!
 
 I'm very happy with great [ngrok](https://ngrok.com/) tunneling, reverse proxy:
 please visit ngrock home page, download sw and run in a new terminal:
@@ -173,7 +173,7 @@ ngrok will so give a public forward URL and display realtime http requests statu
 ngrok is also FREE and allow to reserve you personal immutable subdomains paying though a [pay-what-you-want service](https://ngrok.com/features) !
 
 
-## Step 4. Locally test your Skebby echo server!
+## Step 5. Locally test your Skebby echo server!
 
 Now you can test locally calling a the service endpoint to receive SMSs.
 
@@ -185,7 +185,7 @@ curl -i -X GET  http://a1b2c3d4.ngrok.com
 
 To simulate an invocation by Skebby server after the rx of a SMS:
 
-```
+```bash
 curl -i -X POST  https://a1b2c3d4.ngrok.com/echoserver/skebby \
 -F 'sender=39xxxxxxxxxx' \
 -F 'receiver=3933999415252' \
@@ -199,7 +199,7 @@ curl -i -X POST  https://a1b2c3d4.ngrok.com/echoserver/skebby \
 
 BTW, echo server feed back a JSON response:
 
-```
+```json
 HTTP/1.1 200 OK
 Server: nginx/1.4.3
 Date: Sat, 25 Jan 2014 15:50:26 GMT
@@ -222,7 +222,7 @@ X-Content-Type-Options: nosniff
 
 ```
 
-## Step 5. End-to-end test your echo server!
+## Step 6. End-to-end test your echo server!
 
 - Keep you mobile phone in your hand 
 - send a SMS to you Skebby *application number* (let say the mobile number: "339 99 41 52 52", 
@@ -236,7 +236,7 @@ TEST69 Hello World!
 (after your Skebby web configuration page, where you set the forward URL as: http: //a1b2c3d4.ngrok.com/echoserver/skebby ).  
 - The HTTP request contain in *params* all data of SMS message 
 
-```
+```ruby
 params[:sender]
 params[:receiver]
 params[:text]
