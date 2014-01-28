@@ -7,15 +7,18 @@ Skebby is an Italian SMS gateway service provider with cheap prices and high qua
 
 <p align="center"><img src="http://static.skebby.it/s/i/sms-gratis-business.png" alt="skebby logo"></p>
 
-This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Application acting as "SMS echo server", using Skebby services/APis behind the scenes:
+This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Application, acting as "SMS echo server", using Skebby services/APis enablers behind the scenes:
 
-- An *end User* send a standard SMS to a *Customer Application* that supply a Skebby *Receive SMS* service (each "receive sms" service can be identified by a mobile phone number + application *keyword*)
+## SMS Data Flow
 
-- Skebby server forward that SMS through an HTTP POST/GET to a *Customer Application Server* to be configured in Skebby through an initial web configuration.
+1. An *end User* send a "standard SMS" to a *Customer Application* that supply a Skebby *Receive SMS* service (each *Receive SMS* service can be identified by an assigned mobile phone number + Customer *keyword*)
 
-- This project realize the *Company Application Server*, log the received SMS data (RX) and 
+2. Skebby server forward that SMS through an HTTP POST ( or GET) to a *Customer Application Server* to be configured in Skebby through an initial web configuration.
 
-- send back (TX) to mobile phone sender number a SMS message with pretty the same text payload (ECHO mode).
+This project realize a simple example of that *Company Application Server*.
+The Echo Server simply log the received SMS data and 
+
+3. send back (TX) to mobile phone sender number a SMS message with pretty the same text payload (ECHO mode).
 
 ```
 
@@ -49,9 +52,7 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
 
 ## Step 1. Create your Skebby account
 
-- Configure Username and Password
-
-Register at Skebby to get your credentials:
+Create your account registering at Skebby website to get your credentials:
 
 * \<your_skebby_username\>
 * \<your_skebby_password\>
@@ -65,15 +66,15 @@ Please refer to Skebby website for detailed info about commercial offers to send
 
 To receive SMSs skebby propose to companies the purchase of: 
 
-- *dedicated mobile phone number* where receive SMSs from end users
+- *DEDICATED NUMBER* where receive SMSs from end users
 
 or in alternative the purchase of: 
 
-- *shared mobile phone number + KEYWORD* 
+- *SHARED NUMBER + KEYWORD* 
 
 Please refer to Skebby website for detailed info about commercial offers to receive SMSs.
 
-For both scenarios, you have to configure the URL where you want to receive messages configuring a POST URL Callback in your Skebby SMS receive configuration page:
+For both scenarios, you have to configure the URL where you want to receive messages configuring a POST URL callback in your Skebby SMS receive configuration page:
 
 \<your_ngrok_url\>/echoserver/skebby
 
@@ -90,9 +91,11 @@ In this case end user send a SMSs to the Company Application with a message text
 
 Where:
 
-- <KEYWORD> is the Application ID assigned in initial configuration phase in Skebby website. KEYWORD is not case sensitive and possibly shortest possible (to avoid to waste charcters).
-- <separator_char> a blank character to separate the keyword from the text payload.
-- <free_message_text> is the free text payload, that is the message text the user want to send to the application (please note that max length of number of chars of text payload is: 160 - keyword length - lenght separator).
+- `<KEYWORD>` is the Application ID assigned in initial configuration phase in Skebby website. KEYWORD is not case sensitive and possibly shortest possible (to avoid to waste charcters).
+
+- `<separator_char>` a blank character to separate the keyword from the text payload.
+
+- `<free_message_text>` is the free text payload, that is the message text the user want to send to the application (please note that max length of number of chars of text payload is: 160 - keyword length - lenght separator).
 
 Let say your KEYWORD is "TEST69" and shared number is "39 339 99 41 52 52", so to send a message "Hello World!" to the application, the end user have to send from his mobile phone a *Standard SMS* to number "339 99 41 52 52" (please be careful to remove initial international prefix, e.g. for Italy: "39") with text: 
 
@@ -202,25 +205,34 @@ curl -i -X POST  https://a1b2c3d4.ngrok.com/echoserver/skebby \
 BTW, echo server feed back a JSON response:
 
 ```
+
 HTTP/1.1 200 OK
 Server: nginx/1.4.3
-Date: Sat, 25 Jan 2014 15:50:26 GMT
+Date: Tue, 28 Jan 2014 17:34:51 GMT
 Content-Type: application/json;charset=utf-8
-Content-Length: 222
+Content-Length: 395
 Connection: keep-alive
 X-Content-Type-Options: nosniff
 
 {
   "SMS RECEIVED": {
-    "sender": "39xxxxxxxxxx",
+    "sender": "39XXXXXXXXXXX",
     "receiver": "3933999415252",
+    "text": "TEST123 Hello World!",
     "encoding": "UTF-8",
     "date": "2014-01-25",
     "time": "12:02:28",
     "timestamp": "1390647748",
     "smsType": "standard"
+  },
+  "SMS SENT": {
+    "status": "success",
+    "text": "ECHO Hello World!",
+    "receiver": "39XXXXXXXXXXX",
+    "remaining_sms": 145
   }
 }
+
 
 ```
 
@@ -236,20 +248,9 @@ TEST69 Hello World!
 
 - in few moments your Sinatra app will receive a HTTP POST request from Skebby server 
 (after your Skebby web configuration page, where you set the forward URL as: http: //a1b2c3d4.ngrok.com/echoserver/skebby ).  
-- The HTTP request contain in *params* all data of SMS message 
+- The HTTP request contain in *params* all data of SMS message, transmitted by Skebby server. 
 
-```ruby
-    params[:sender]
-    params[:receiver]
-    params[:text]
-    params[:encoding]
-    params[:date]
-    params[:time]
-    params[:timestamp]
-    params[:smsType]
-```	
-
-- the echo server will log data with logger enabler and will forwarded back to your mobile phone number the message!
+- This echo server log data and forwarded back to your mobile phone number the message:
 
 ```
 ECHO Hello World!
@@ -267,21 +268,20 @@ The develop of a complex application is out of scope of this small open-source p
 
 ## Release Notes
 
-### v.0.2.2
+### v.0.3.0
 - Prerelease: 28 January 2014
-- Send back message to mobile phone end user SMS sender (TX SMS via SMS gateway). 
+- I enjoy using [Skuby](https://github.com/welaika/skuby) gem to send SMS! 
+- Data flow better explained in this README
 - fixed curl call example
-- Data flow better explained in this readme
 
 ### v.0.1.1
 - First release: 25 January 2014
 
 
 ## To do
-- rework SkebbyGatewaySendSMS class removing any puts (log instead)
 - better logging
 - manage GET requests
-- rethink about the client side usage of SMS TX Gateway API call  
+- more clean Sinatra code (initializations)
 
 ## Licence
 
