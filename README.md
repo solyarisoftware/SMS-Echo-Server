@@ -53,7 +53,8 @@ This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Applicat
 
 Register at Skebby to get your credentials:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<your_skebby_username\>, \<your_skebby_password\>
+* \<your_skebby_username\>
+* \<your_skebby_password\>
 
 ### Send SMS Skebby Services
 
@@ -74,16 +75,18 @@ Please refer to Skebby website for detailed info about commercial offers to rece
 
 For both scenarios, you have to configure the URL where you want to receive messages configuring a POST URL Callback in your Skebby SMS receive configuration page:
 
-<p align="center">\<your_ngrok_url\>/echoserver/skebby</p>
+\<your_ngrok_url\>/echoserver/skebby
 
 The callback URL will be by example: 
 
-<p align="center">https://a1b2c3d4.ngrok.com /echoserver/skebby</p>
+https: // a1b2c3d4.ngrok.com/echoserver/skebby
 
 I done some tests here using the *shared mobile phone number + KEYWORD* approach.
 In this case end user send a SMSs to the Company Application with a message text with the format:   
 
-<p align="center">\<KEYWORD\>\<separator_char\>\<free_message_text\></p>
+```
+<KEYWORD><separator_char><free_message_text>
+```
 
 Where:
 
@@ -93,7 +96,9 @@ Where:
 
 Let say your KEYWORD is "TEST69" and shared number is "39 339 99 41 52 52", so to send a message "Hello World!" to the application, the end user have to send from his mobile phone a *Standard SMS* to number "339 99 41 52 52" (please be careful to remove initial international prefix, e.g. for Italy: "39") with text: 
 
-<p align="center">"TEST69 Hello World!"</p>
+```
+TEST69 Hello World!
+```
 
 ## Step 2. Install stuff
 
@@ -287,12 +292,17 @@ BTW, a mention/feedback to me will be very welcome and STAR the project if you f
 ## Special Thanks
 
 - [Alan Shreve](https://github.com/inconshreveable/ngrok), for his great tunneling, reverse proxy open source project [ngrok](https://ngrok.com/)
-- [Tommaso Visconti](https://github.com/tommyblue), for his code for send SMS Ruby code [send_sms.rb](https://github.com/solyaris/skebby_echo_server/blob/master/send_sms.rb) and generally for his many useful posts about sw programming (by example [this one](http://www.tommyblue.it/2012/01/18/notifiche-sms-gratis-con-nagiosicinga-e-skebby) ).
+
+- [Tommaso Visconti](https://github.com/tommyblue), for his code for send SMS Ruby code [code](http://www.skebby.it/business/index/code-examples/?example=sendRuby) and generally for his many useful posts about sw programming (by example [this one](http://www.tommyblue.it/2012/01/18/notifiche-sms-gratis-con-nagiosicinga-e-skebby) ).
+
 - [Paolo Montrasio](https://github.com/pmontrasio), that long time ago suggested to me Skebby features.
+
+- [Fabrizio Monti](https://github.com/welaika), for his smart Ruby interface for Skebby [Skuby](https://github.com/welaika/skuby)
+
 
 # Contacts
 
-### Skebby
+### Skebby people
 To create your account for Skebby services, getting API credentials (username, password) and purchase your SMS credit, please visit: [www.skebby.com](http://www.skebby.com).
 
 ### About me

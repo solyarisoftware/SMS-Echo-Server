@@ -2,8 +2,11 @@ source 'https://rubygems.org'
 
 gem "sinatra"
 
-# http server: thin
+# fast http server
 gem 'thin'
+
+# https://github.com/welaika/skuby
+gem 'skuby'
 
 group :development do
   gem "shotgun"
