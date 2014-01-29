@@ -2,9 +2,12 @@ require 'sinatra'
 require 'json'
 require 'skuby'
 
-ABOUT = "SMS Echo Server (using Skebby). \
-home page: https://github.com/solyaris/SMS-Echo-Server \
-e-mail: giorgio.robino@gmail.com"
+WHAT_I_AM = { "about" => "SMS Echo Server (using Skebby)",
+              "version" => "0.3.2", 
+              "home page" =>  "https://github.com/solyaris/SMS-Echo-Server",
+              "e-mail" => "giorgio.robino@gmail.com"
+            }  
+
 
 configure do
 
@@ -133,7 +136,7 @@ end
 
 
 get "/" do
-  to_json ( { :message => ABOUT } )
+  to_json ( WHAT_I_AM )
 end
 
 get "/echoserver/skebby" do
