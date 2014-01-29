@@ -319,11 +319,8 @@ BTW, a mention/feedback to me will be very welcome and STAR the project if you f
 ## Special Thanks
 
 - [Alan Shreve](https://github.com/inconshreveable/ngrok), for his great tunneling, reverse proxy open source project [ngrok](https://ngrok.com/)
-
 - [Tommaso Visconti](https://github.com/tommyblue), for his code for send SMS Ruby code [code](http://www.skebby.it/business/index/code-examples/?example=sendRuby) and generally for his many useful posts about Ruby (on Rails), by example: [this one](http://www.tommyblue.it/2012/01/18/notifiche-sms-gratis-con-nagiosicinga-e-skebby).
-
 - [Paolo Montrasio](https://github.com/pmontrasio), that long time ago suggested to me Skebby features.
-
 - [Fabrizio Monti](https://github.com/welaika), for his smart Ruby gem [Skuby](https://github.com/welaika/skuby)
 
 
