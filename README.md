@@ -27,7 +27,7 @@ end
 
      An end user, with a mobile phone 
                              
-       ^                | 1. send a Standard SMS with text: "TEST69 Hello World!"
+       ^                | 1. send a Standard SMS with text: "TEST123 Hello World!"
        |                | 
        | 6. receive back an echo SMS with text: "ECHO Hello World!"
        |                | 
@@ -99,10 +99,10 @@ Where:
 
 Example:
 
-Let say your keyword is: "TEST69" and Skebby shared number is: "39 339 99 41 52 52", so to send a message "Hello World!" to the Application, you have to send from his mobile phone a *Standard SMS* to number "339 99 41 52 52" (please be careful to remove initial international prefix, e.g. for Italy: "39") with text: 
+Let say your keyword is: "TEST123" and Skebby shared number is: "39 339 99 41 52 52", so to send a message "Hello World!" to the Application, you have to send from his mobile phone a *Standard SMS* to number "339 99 41 52 52" (please be careful to remove initial international prefix, e.g. for Italy: "39") with text: 
 
 ```
-TEST69 Hello World!
+TEST123 Hello World!
 ```
 
 ## Step 2. Software installation
@@ -262,10 +262,10 @@ In cause of failure sending back the SMS (TX), JSON response show error_message 
 
 - Keep you mobile phone in your hand 
 - send a SMS to you Skebby *application number* (let say the mobile number: "339 99 41 52 52", 
-- write your test text message; assuming your *application keyword* is "TEST69", and you want to send  message "Hello World!", so please send the message text:
+- write your test text message; assuming your *application keyword* is "TEST123", and you want to send  message "Hello World!", so please send the message text:
 
 ```
-TEST69 Hello World!
+TEST123 Hello World!
 ```
 
 - in few moments your Sinatra app will receive a HTTP POST request from Skebby server 
