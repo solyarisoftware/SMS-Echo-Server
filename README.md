@@ -177,8 +177,8 @@ ngrok will so give a public forward URL and display realtime http requests statu
 	HTTP Requests
 	-------------
 
-	POST /skebby/receivesms       200 OK
-	POST /skebby/receivesms       200 OK
+	POST /echoserver/skebby       200 OK
+	POST /echoserver/skebby       200 OK
 
 
 ### Or Deploy somewhere on internet
