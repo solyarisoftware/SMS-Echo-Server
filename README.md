@@ -6,7 +6,14 @@ Skebby is an Italian SMS gateway service provider with cheap prices and high qua
 
 <p align="center"><img src="http://static.skebby.it/s/i/sms-gratis-business.png" alt="skebby logo"></p>
 
-This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Application, acting as "SMS echo server", using Skebby services/APis enablers behind the scenes:
+This project is Yet Another Simple [Sinatra](http://www.sinatrarb.com/) Application, acting as "SMS echo server", using Skebby services/APis enablers behind the scenes. The core of Sinatra app is simple as:
+
+```ruby
+post "/echoserver/skebby" do
+  # send an echo SMS with Skuby::Gateway.send_sms
+  echo_sms request, params
+end
+```
 
 ## SMS Data Flow
 
@@ -101,7 +108,7 @@ Let say your keyword> is: "TEST69" and shared number is: "39 339 99 41 52 52", s
 TEST69 Hello World!
 ```
 
-## Step 2. Install stuff
+## Step 2. Installation
 
 - Install source code: 
 
@@ -135,7 +142,7 @@ run shotgun, at port 9393 with command:
 shotgun config.ru -o 127.0.0.1 -p 9393 -E development
 ```
 
-### run server in "Production"
+### run server in Production
 
 You run on port 9393, with command:
 
@@ -143,10 +150,17 @@ You run on port 9393, with command:
 ruby app.rb -o 127.0.0.1 -p 9393 -e production
 ```
 
-## Step 4. publish your local dev server with ngrok!
+## Step 4. Deploy the Application Server 
 
-I'm very happy with great [ngrok](https://ngrok.com/) tunneling, reverse proxy:
-please visit ngrock home page, download sw and run in a new terminal:
+### Publish your local dev server with ngrok!
+
+Wow! I'm very happy with great [ngrok](https://ngrok.com/) tunneling, reverse proxy. 
+
+ngrok is a really excellent tool allowing developers to quickly publish any localhost application on internet through HTTP/HTTPS (and also TCP IP net applications).  
+
+ngrok is also FREE and allow to reserve you personal immutable subdomains paying though a [pay-what-you-want service](https://ngrok.com/features) !
+
+Please visit ngrock home page, create your account in less than 30 seconds and download sw and run in a new terminal:
 
 ```bash
 cd /your/path/to/ngrok; ./ngrok 9393
@@ -169,9 +183,10 @@ ngrok will so give a public forward URL and display realtime http requests statu
 	POST /skebby/receivesms       200 OK
 	POST /skebby/receivesms       200 OK
 
-[ngrok](https://ngrok.com/) it's a really excellent tool allowing developers to quickly publish any localhost application on internet through HTTP/HTTPS (and also TCP IP net applications!).  
 
-ngrok is also FREE and allow to reserve you personal immutable subdomains paying though a [pay-what-you-want service](https://ngrok.com/features) !
+### Or Deploy somewhere on internet
+
+In alternative to the quick solution above, to really deploy on production stable environment, use Heroku, Amazon EC2, etc.
 
 
 ## Step 5. Locally test the echo server!
@@ -181,14 +196,14 @@ Now you can test locally calling a the service endpoint to receive SMSs.
 Just to verify your echo server is up and running, open a terminal and enjoy:
 
 ```bash
-curl -i -X GET  http://a1b2c3d4.ngrok.com
+curl -X GET http://a1b2c3d4.ngrok.com
 ```
 
-To simulate an invocation by Skebby server after the rx of a SMS:
+To simulate an invocation by Skebby server after the rx of a SMS (note the sender number is set as fake example: `390000000000`):
 
 ```bash
-curl -i -X POST  https://a1b2c3d4.ngrok.com/echoserver/skebby \
--F 'sender=39xxxxxxxxxx' \
+curl -X POST https://a1b2c3d4.ngrok.com/echoserver/skebby \
+-F 'sender='390000000000' \
 -F 'receiver=3933999415252' \
 -F 'text=TEST123 Hello World!' \
 -F 'encoding=UTF-8' \
@@ -200,18 +215,10 @@ curl -i -X POST  https://a1b2c3d4.ngrok.com/echoserver/skebby \
 
 BTW, echo server feed back a JSON response:
 
-```
-HTTP/1.1 200 OK
-Server: nginx/1.4.3
-Date: Tue, 28 Jan 2014 17:34:51 GMT
-Content-Type: application/json;charset=utf-8
-Content-Length: 395
-Connection: keep-alive
-X-Content-Type-Options: nosniff
-
+```json
 {
   "SMS RECEIVED": {
-    "sender": "39XXXXXXXXXXX",
+    "sender": "390000000000",
     "receiver": "3933999415252",
     "text": "TEST123 Hello World!",
     "encoding": "UTF-8",
@@ -223,14 +230,40 @@ X-Content-Type-Options: nosniff
   "SMS SENT": {
     "status": "success",
     "text": "ECHO Hello World!",
-    "receiver": "39XXXXXXXXXXX",
+    "receiver": "390000000000",
     "remaining_sms": 145
   }
 }
 
 ```
 
-## Step 6. End-to-end test: SMS TX -> ECHO SMS RX!
+In cause of failure sending back the SMS, JSON response show error_message and all info about failure: 
+
+```json
+{
+  "SMS RECEIVED": {
+    "sender": "390000000000",
+    "receiver": "3933999415252",
+    "text": "TEST123 Ciao Mondo Intero!",
+    "encoding": "UTF-8",
+    "date": "2014-01-25",
+    "time": "12:02:28",
+    "timestamp": "1390647748",
+    "smsType": "standard"
+  },
+  "SMS SENT": {
+    "status": "failed",
+    "error_code": 21,
+    "error_message": "Username or password not valid, you cannot use your email or phone number, only username is allowed on gateway",
+    "text": "ECHO Ciao Mondo Intero!",
+    "receiver": "390000000000"
+  }
+}
+
+```
+
+
+## Step 6. End-to-end SMS Echo test!
 
 - Keep you mobile phone in your hand 
 - send a SMS to you Skebby *application number* (let say the mobile number: "339 99 41 52 52", 
@@ -263,32 +296,24 @@ The develop of a complex application is out of scope of this small open-source p
 
 ### About Skebby Services
 
-Pros: 
-I enjoyed the very fast and reliable end-to-end delivery time elapseds using `send_sms_classic` SMSs: usually the end-to-end echo back take no more than few seconds. great!
-I got worst performances sending cheapest `send_sms_basic` SMSs (elapsed times start from half a minute to 5/15 minutes).
+* Performances with `send_sms_classic` SMSs: I enjoyed the very fast and reliable end-to-end delivery time elapseds using `send_sms_classic` SMSs: usually the end-to-end echo back take no more than few seconds. great!
+* Performances with `send_sms_basic` SMSs: I got worst sending cheapest `send_sms_basic` SMSs (elapsed times start from half a minute to 5/10 minutes). 
+* Website registration/configuration/etc.: is pretty well done but there are some areas of improvements in organization of "storyboards" (you can find a lot of info but you lost yourself easely). 
+* Last but not least, documentation of some behaviours is not too clear (by example the format of message with KEYWORD (the need of a separator) is not correctly explained in Skebby website). Not a big problem after some debug :-)
 
-Minus:
-Website (registration/configuration/etc.) is pretty well done but there are some areas of improvements in organization of "storyboards" (you can find a lot of info but you lost yourself easely). Last but not least, documentation of some behaviours is not too clear (by example the format of message with KEYWORD (the need of a separator) is not correctly explained in Skebby website). Not a big problem after some debug :-)
-
-All in all my feedback about Skebby services are positive!
+All in all my feedback about Skebby services are positive! :-)
 
 
 ## Release Notes
 
-### v.0.3.0
-- Prerelease: 28 January 2014
+### v.0.3.1 (29 January 2014)
 - I enjoy using [Skuby](https://github.com/welaika/skuby) gem to send SMS! 
 - Data flow better explained in this README
 - fixed curl call example
 
-### v.0.1.1
-- First release: 25 January 2014
+### v.0.1.1 (25 January 2014)
+- First release!
 
-
-## To do
-- better logging
-- manage GET requests
-- more clean Sinatra code (initializations)
 
 ## Licence
 
