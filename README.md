@@ -143,72 +143,7 @@ You run a super fast Sinatra server on port 9393, with command:
 ruby app.rb -o 127.0.0.1 -p 9393 -e production
 ```
 
-## Step 4. Deploy the Application Server 
-
-### Option 1: Publish your local server with ngrok!
-
-Wow! I'm very happy with great [ngrok](https://ngrok.com/) tunneling, reverse proxy. 
-
-ngrok is a really excellent tool allowing developers to quickly publish any localhost application on internet through HTTP/HTTPS (and also TCP IP net applications).  
-
-ngrok is also FREE and allow to reserve you personal immutable subdomains paying though a [pay-what-you-want service](https://ngrok.com/features) !
-
-Please visit ngrock home page, create your account in less than 30 seconds and download sw and run in a new terminal:
-
-```bash
-cd /your/path/to/ngrok; ./ngrok 9393
-```
-
-ngrok will so give a public forward URL and display realtime http requests status:
-
-	Tunnel Status                 online
-	Version                       1.6/1.5
-	Forwarding                    http://a1b2c3d4.ngrok.com -> 127.0.0.1:9393
-	Forwarding                    https://a1b2c3d4.ngrok.com -> 127.0.0.1:9393
-	Web Interface                 127.0.0.1:4040
-	# Conn                        27
-	Avg Conn Time                 443.47ms
-
-
-	HTTP Requests
-	-------------
-
-	POST /echoserver/skebby       200 OK
-	POST /echoserver/skebby       200 OK
-
-
-### Option 2: Deploy somewhere on internet
-
-In alternative to the quick solution above, to really deploy on production stable environment, use your preferred cloud environment, pheraps Heroku, Amazon EC2, etc.
-
-#### Deploying to Heroku
-
-```bash
-heroku create
-git push heroku master
-```
-
-The app is now deployed to Heroku. 
-Remember to set ENV vars for username, password with commands:
-
-```bash
-heroku config:set SKEBBY_USERNAME=your_skebby_username
-heroku config:set SKEBBY_PASSWORD=your_skebby_password
-```
-
-Check if your Sinastra server is up & running on Heroku:
-
-```bash
-curl http://your_heroku_app_name.herokuapp.com
-{
-  "about": "SMS Echo Server (using Skebby)",
-  "version": "0.3.2",
-  "home page": "https://github.com/solyaris/SMS-Echo-Server",
-  "e-mail": "giorgio.robino@gmail.com"
-}
-```
-
-## Step 5. Locally test the echo server!
+## Step 4. Test echo server in localhost
 
 Now you can test locally calling a the service endpoint to receive SMS. Just to verify your echo server is up and running, open a terminal and enjoy:
 
@@ -279,6 +214,70 @@ In cause of failure sending back the SMS (TX), JSON response show error_message 
 
 ```
 
+## Step 5. Deploy the Application Server 
+
+### Option 1: Publish your local server with ngrok!
+
+Wow! I'm very happy with great [ngrok](https://ngrok.com/) tunneling, reverse proxy. 
+
+ngrok is a really excellent tool allowing developers to quickly publish any localhost application on internet through HTTP/HTTPS (and also TCP IP net applications).  
+
+ngrok is also FREE and allow to reserve you personal immutable subdomains paying though a [pay-what-you-want service](https://ngrok.com/features) !
+
+Please visit ngrock home page, create your account in less than 30 seconds and download sw and run in a new terminal:
+
+```bash
+cd /your/path/to/ngrok; ./ngrok 9393
+```
+
+ngrok will so give a public forward URL and display realtime http requests status:
+
+	Tunnel Status                 online
+	Version                       1.6/1.5
+	Forwarding                    http://a1b2c3d4.ngrok.com -> 127.0.0.1:9393
+	Forwarding                    https://a1b2c3d4.ngrok.com -> 127.0.0.1:9393
+	Web Interface                 127.0.0.1:4040
+	# Conn                        27
+	Avg Conn Time                 443.47ms
+
+
+	HTTP Requests
+	-------------
+
+	POST /echoserver/skebby       200 OK
+	POST /echoserver/skebby       200 OK
+
+
+### Option 2: Deploy somewhere on internet
+
+In alternative to the quick solution above, to really deploy on production stable environment, use your preferred cloud environment, pheraps Heroku, Amazon EC2, etc.
+
+#### Deploying to Heroku
+
+```bash
+heroku create
+git push heroku master
+```
+
+The app is now deployed to Heroku. 
+Remember to set ENV vars for username, password with commands:
+
+```bash
+heroku config:set SKEBBY_USERNAME=your_skebby_username
+heroku config:set SKEBBY_PASSWORD=your_skebby_password
+```
+
+Check if your Sinastra server is up & running on Heroku:
+
+```bash
+curl http://your_heroku_app_name.herokuapp.com
+{
+  "about": "SMS Echo Server (using Skebby)",
+  "version": "0.3.2",
+  "home page": "https://github.com/solyaris/SMS-Echo-Server",
+  "e-mail": "giorgio.robino@gmail.com"
+}
+```
 
 ## Step 6. End-to-end SMS echo test!
 
