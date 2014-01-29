@@ -57,8 +57,8 @@ end
 
 Create your account registering at Skebby website to get your credentials:
 
-* \<your_skebby_username\>
-* \<your_skebby_password\>
+- *your_skebby_username*
+- *your_skebby_password*
 
 ### Send SMS with Skebby Services
 
@@ -76,11 +76,7 @@ where receive SMS from end users, or in alternative the purchase of:
 
 Please refer to Skebby website for detailed info about commercial offers to receive SMS.
 
-For both options, you have to configure the URL where you want to receive messages configuring a POST URL *callback* in your Skebby SMS receive configuration page. For this project please configure the endpoint `/echoserver/skebby` so the complete callback URL must have format: `<your_ngrok_or_different_callback_url>/echoserver/skebby`. By example: 
-
-```
-https: // a1b2c3d4.ngrok.com/echoserver/skebby
-```
+For both options, you have to configure the URL where you want to receive messages configuring a POST URL *callback* in your Skebby SMS receive configuration page. For this project please configure the endpoint `/echoserver/skebby` so the complete callback URL must have format: `your_ngrok_or_different_callback_url/echoserver/skebby`. By example: `https: // a1b2c3d4.ngrok.com/echoserver/skebby`
 
 #### About message text content 
 I done some tests using the *shared mobile phone number + KEYWORD* (Option 1). In this case end user send a SMS to the Server Application with a message text with the format:   
@@ -127,8 +123,8 @@ $ cd SMS-Echo-Server; bundle install
 Open a terminal to run Sinatra Server, and before all set few ENV variables:
 
 ```bash
-	$ export SKEBBY_USERNAME=<your_skebby_username>
-	$ export SKEBBY_PASSWORD=<your_skebby_password>
+	$ export SKEBBY_USERNAME=your_skebby_username
+	$ export SKEBBY_PASSWORD=your_skebby_password
 ```
 
 ### Run Sinatra server in Developement
@@ -149,7 +145,7 @@ ruby app.rb -o 127.0.0.1 -p 9393 -e production
 
 ## Step 4. Deploy the Application Server 
 
-### Publish your local server with ngrok!
+### Option 1: Publish your local server with ngrok!
 
 Wow! I'm very happy with great [ngrok](https://ngrok.com/) tunneling, reverse proxy. 
 
@@ -181,9 +177,39 @@ ngrok will so give a public forward URL and display realtime http requests statu
 	POST /echoserver/skebby       200 OK
 
 
-### Or Deploy somewhere on internet
+### Option 2: Deploy somewhere on internet
 
 In alternative to the quick solution above, to really deploy on production stable environment, use your preferred cloud environment, pheraps Heroku, Amazon EC2, etc.
+
+#### Deploying to Heroku
+
+```bash
+  $ git init
+  $ git add .
+  $ git commit -m 'SMS echo server'
+  $ heroku create
+  $ git push heroku master
+```
+
+The app is now deployed to Heroku. 
+Remember to set ENV vars for username, password with commands:
+
+```bash
+  $ heroku config:set SKEBBY_USERNAME=your_skebby_username
+  $ heroku config:set SKEBBY_PASSWORD=your_skebby_password
+```
+
+Check if your Sinastra server is up & running on Heroku:
+
+```bash
+$ curl http://your_heroku_app_name.herokuapp.com
+{
+  "about": "SMS Echo Server (using Skebby)",
+  "version": "0.3.2",
+  "home page": "https://github.com/solyaris/SMS-Echo-Server",
+  "e-mail": "giorgio.robino@gmail.com"
+}
+```
 
 
 ## Step 5. Locally test the echo server!
