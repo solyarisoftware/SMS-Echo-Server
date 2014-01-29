@@ -76,7 +76,7 @@ where receive SMSs from end users, or in alternative the purchase of:
 
 Please refer to Skebby website for detailed info about commercial offers to receive SMS.
 
-For both options, you have to configure the URL where you want to receive messages configuring a POST URL *callback* in your Skebby SMS receive configuration page. For this project please configure the endpoint `/echoserver/skebby` so the complete callback URL must have format: `\<your_ngrok_or_different_callback_url\>/echoserver/skebby`. By example: 
+For both options, you have to configure the URL where you want to receive messages configuring a POST URL *callback* in your Skebby SMS receive configuration page. For this project please configure the endpoint `/echoserver/skebby` so the complete callback URL must have format: `<your_ngrok_or_different_callback_url>/echoserver/skebby`. By example: 
 
 ```
 https: // a1b2c3d4.ngrok.com/echoserver/skebby
@@ -133,9 +133,7 @@ Open a terminal to run Sinatra Server, and before all set few ENV variables:
 
 ### Run Sinatra server in Developement
 
-To automatically reload [rack](http://rack.github.io/) server after changes in source code in development environment, I enjoyed useful [`shotgun`](https://github.com/rtomayko/shotgun).
-
-run shotgun, at port 9393 with command:
+To automatically reload [rack](http://rack.github.io/) server after changes in source code in development environment, I enjoyed useful [`shotgun`](https://github.com/rtomayko/shotgun). run shotgun, at port 9393 with command:
 
 ```bash
 shotgun config.ru -o 127.0.0.1 -p 9393 -E development
@@ -200,7 +198,7 @@ To simulate an invocation by Skebby server after the rx of a SMS (note the sende
 
 ```bash
 curl -X POST https://a1b2c3d4.ngrok.com/echoserver/skebby \
--F 'sender='390000000000' \
+-F 'sender=390000000000' \
 -F 'receiver=3933999415252' \
 -F 'text=TEST123 Hello World!' \
 -F 'encoding=UTF-8' \
@@ -210,7 +208,7 @@ curl -X POST https://a1b2c3d4.ngrok.com/echoserver/skebby \
 -F 'smsType=standard'
 ```
 
-BTW, echo server feed back a JSON response:
+Sinatra echo server feed back to client the JSON response:
 
 ```json
 {
@@ -234,7 +232,7 @@ BTW, echo server feed back a JSON response:
 
 ```
 
-In cause of failure sending back the SMS (TX), JSON response show error_message and all info about failure (by example in the example ): 
+In cause of failure sending back the SMS (TX), JSON response show error_message and all info about failure (by example in case you didn't set ENV variables): 
 
 ```json
 {
@@ -260,7 +258,7 @@ In cause of failure sending back the SMS (TX), JSON response show error_message 
 ```
 
 
-## Step 6. End-to-end SMS echo test
+## Step 6. End-to-end SMS echo test!
 
 - Keep you mobile phone in your hand 
 - send a SMS to you Skebby *application number* (let say the mobile number: "339 99 41 52 52", 
@@ -282,7 +280,7 @@ ECHO Hello World!
 
 ## Notes
 
-### Bidirectional SMS Services (end users <-> application server)
+### Complex Bidirectional SMS Services
 
 The scope of that simple echo server is just to quickly test and debug Skebby service features (SMS gateways Send APIs and Receive SMS through the HTTP proxy behaviours).
 
@@ -291,12 +289,12 @@ A further step could be to realize ANY sort of *Company Application Server* that
 The develop of a complex application is out of scope of this small open-source project; so feel free to contact me for your project as job proposal!
 
 
-### About Skebby Services
+### Skebby Services Survey
 
 * Performances with `send_sms_classic` SMSs: I enjoyed the very fast and reliable end-to-end delivery time elapseds using `send_sms_classic` SMSs: usually the end-to-end echo back take no more than few seconds. great! :-)
 * Performances with `send_sms_basic` SMSs: I got worst sending cheapest `send_sms_basic` SMSs (elapsed times start from half a minute to 5/10 minutes). 
-* Unfortunately Receive SMS services run only with "Standard SMS". That mean end user can not send SMSs to server using [free SMS message mobile apps](http://www.skebby.it/scarica-programma-sms-gratis/) also available by Skebby :-(  
-* Website registration/configuration/etc.: is pretty well done but there are some areas of improvements in organization of "storyboards" (you can find a lot of info but you lost yourself easely). 
+* Unfortunately Receive SMS services run only if end user send "Standard SMS". That mean end user can not send SMSs to server using [free SMS message mobile apps](http://www.skebby.it/scarica-programma-sms-gratis/) also available by Skebby :-(  
+* Website registration/configuration/etc. pages are pretty well done but there are some areas of improvements in organization of "navigation storyboards" (you can find really a lot of info but you lost yourself easely). 
 * Last but not least, documentation for developers of some behaviours is not too clear (by example the format of message with KEYWORD (need of a separator) is not correctly explained in Skebby website).
 
 All in all my final vote about Skebby services is positive.
@@ -304,7 +302,7 @@ All in all my final vote about Skebby services is positive.
 
 ## Release Notes
 
-### v.0.3.1 (29 January 2014)
+### v.0.3.2 (29 January 2014)
 - Data flow better explained in this README
 - To send SMS I substitute the Ruby example code supplied by Skebby website with [Skuby](https://github.com/welaika/skuby) gem.
 
