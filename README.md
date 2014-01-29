@@ -66,11 +66,11 @@ After the free usage, you have to puchase a pack of some number of message to se
 
 ### Receive SMS with Skebby Services
 
-After the free usage, to receive SMSs Skebby propose to customers the purchase of: 
+After the free usage, to receive SMS Skebby propose to customers the purchase of: 
 
 - Option 1: *DEDICATED NUMBER*
 
-where receive SMSs from end users, or in alternative the purchase of: 
+where receive SMS from end users, or in alternative the purchase of: 
 
 - Option 2: *SHARED NUMBER + KEYWORD* 
 
@@ -188,7 +188,7 @@ In alternative to the quick solution above, to really deploy on production stabl
 
 ## Step 5. Locally test the echo server!
 
-Now you can test locally calling a the service endpoint to receive SMSs. Just to verify your echo server is up and running, open a terminal and enjoy:
+Now you can test locally calling a the service endpoint to receive SMS. Just to verify your echo server is up and running, open a terminal and enjoy:
 
 ```bash
 curl -X GET http://a1b2c3d4.ngrok.com
@@ -284,16 +284,16 @@ ECHO Hello World!
 
 The scope of that simple echo server is just to quickly test and debug Skebby service features (SMS gateways Send APIs and Receive SMS through the HTTP proxy behaviours).
 
-A further step could be to realize ANY sort of *Company Application Server* that elaborate SMSs received by *end users*. 
+A further step could be to realize ANY sort of *Company Application Server* that elaborate SMS received by *end users*. 
 
 The develop of a complex application is out of scope of this small open-source project; so feel free to contact me for your project as job proposal!
 
 
 ### Skebby Services Survey
 
-* Performances with `send_sms_classic` SMSs: I enjoyed the very fast and reliable end-to-end delivery time elapseds using `send_sms_classic` SMSs: usually the end-to-end echo back take no more than few seconds. great! :-)
-* Performances with `send_sms_basic` SMSs: I got worst sending cheapest `send_sms_basic` SMSs (elapsed times start from half a minute to 5/10 minutes). 
-* Unfortunately Receive SMS services run only if end user send "Standard SMS". That mean end user can not send SMSs to server using [free SMS message mobile apps](http://www.skebby.it/scarica-programma-sms-gratis/) also available by Skebby :-(  
+* Performances with `send_sms_classic` SMS mode: I enjoyed the very fast and reliable end-to-end delivery time elapseds using this configuration: usually the end-to-end echo back take no more than few seconds. great! :-)
+* Performances with `send_sms_basic` SMS: I verified some delayed elapsed with cheapest mode: elapsed times start from half a minute to 5/10 minutes and a bit more sometime. 
+* Unfortunately Receive SMS services run only if end user send "Standard SMS". That mean end user can not send SMS to server using [free SMS message mobile apps](http://www.skebby.it/scarica-programma-sms-gratis/) also available by Skebby :-(  
 * Website registration/configuration/etc. pages are pretty well done but there are some areas of improvements in organization of "navigation storyboards" (you can find really a lot of info but you lost yourself easely). 
 * Last but not least, documentation for developers of some behaviours is not too clear (by example the format of message with KEYWORD (need of a separator) is not correctly explained in Skebby website).
 
