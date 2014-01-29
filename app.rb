@@ -14,9 +14,7 @@ configure do
   username = ENV['SKEBBY_USERNAME']
   password = ENV['SKEBBY_PASSWORD'] 
 
-  #
   # Initialize Skuby
-  #
   Skuby.setup do |config|
     config.method = 'send_sms_classic'
     config.username = username
@@ -26,6 +24,9 @@ configure do
     config.charset = 'UTF-8'
   end
 
+  # in case you are testing with scenario: *SHARED NUMBER + KEYWORD*
+  enable :contain_keyword
+  set echo_keyword: "ECHO"
 end
 
 before do
@@ -64,18 +65,24 @@ helpers do
   #
   # By example with a message containing a <KEYWORD>:
   #
-  #   echo_message "TEST123 Hello World!", :contain_keyword # => "ECHO Hello World!"
+  #   echo_message "TEST123 Hello World! I'm poor!" 
+  #   # => "ECHO Hello World! I'm poor!"
   #
-  def echo_text (original_message, mode, echo_keyword="ECHO")
-    if mode == :contain_keyword
+  # By example with a message without keyword:
+  #
+  #   echo_message "Hello World! I'm rich!" 
+  #   # => "ECHO Hello World! I'm rich!"
+  #
+  def echo_text (text)
+    if settings.contain_keyword
+      # substitute <KEYWORD> with <ECHO>
+      separator_index = text.index(/\s/)
+      lenght = text.length
+      cut_text = text[separator_index+1, lenght-separator_index]
 
-      separator_index = original_message.index(/\s/)
-      lenght = original_message.length
-      text = original_message[separator_index+1, lenght-separator_index]
-
-      "#{echo_keyword} #{text}"
+      "#{settings.echo_keyword} #{cut_text}"
      else
-      "#{echo_keyword} #{original_message}"
+      "#{settings.echo_keyword} #{text}"
      end  
   end
 
@@ -91,7 +98,7 @@ helpers do
     logger.info sms_params  
 
     # Send back to the sender an SMS echo message!
-    text = echo_text params[:text], :contain_keyword
+    text = echo_text params[:text]
     receiver = params[:sender]
 
     # Send SMS via Skuby
@@ -134,6 +141,8 @@ get "/echoserver/skebby" do
 end
 
 post "/echoserver/skebby" do
+  # received SMS: elaborate ECHO logic
+  # send an echo SMS with Skuby::Gateway.send_sms
   echo_sms request, params
 end
 
