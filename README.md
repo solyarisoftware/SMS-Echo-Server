@@ -129,7 +129,7 @@ export SKEBBY_PASSWORD=your_skebby_password
 
 ### Run Sinatra server in Developement
 
-To automatically reload [rack](http://rack.github.io/) server after changes in source code in development environment, I enjoyed useful [`shotgun`](https://github.com/rtomayko/shotgun). run shotgun, at port 9393 with command:
+To automatically reload [rack](http://rack.github.io/) server after changes in source code in development environment, I enjoyed useful [shotgun](https://github.com/rtomayko/shotgun). To run server, at port 9393:
 
 ```bash
 shotgun config.ru -o 127.0.0.1 -p 9393 -E development
@@ -315,7 +315,7 @@ The develop of a complex application is out of scope of this small open-source p
 
 * Performances with `send_sms_classic` SMS mode: I enjoyed the very fast and reliable end-to-end delivery time elapseds using this configuration: usually the end-to-end echo back take no more than few seconds. great! :-)
 * Performances with `send_sms_basic` SMS: I verified some delayed elapsed with cheapest mode: elapsed times start from half a minute to 5/10 minutes and a bit more sometime. 
-* Unfortunately Receive SMS services run only if end user send "Standard SMS". That mean end user can not send SMS to server using [free SMS message mobile apps](http://www.skebby.it/scarica-programma-sms-gratis/) also available by Skebby :-(  
+* Unfortunately Receive SMS services run only if end user send "Standard SMS". That mean end user can not send SMS to server using [free SMS message mobile apps](http://www.skebby.com/download-free-sms-application/install-from-pc/) also available by Skebby :-(  
 * Website registration/configuration/etc. pages are pretty well done but there are some areas of improvements in organization of "navigation storyboards" (you can find really a lot of info but you lost yourself easely). 
 * Last but not least, documentation for developers of some behaviours is not too clear (by example the format of message with KEYWORD (need of a separator) is not correctly explained in Skebby website).
 
@@ -353,6 +353,5 @@ To create your account for Skebby services, getting API credentials (username, p
 
 ### About me
 I develop using Ruby, when possible and also when is not possible. I'm also a music composer and a mountaineer. Home page: [http://about.me/solyaris](http://about.me/solyaris)
-
 Please feel free to write an e-mail with your comments and jobs proposals are more than welcome.
 E-mail: [giorgio.robino@gmail.com](mailto:giorgio.robino@gmail.com)
