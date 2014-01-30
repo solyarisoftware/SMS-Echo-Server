@@ -2,13 +2,6 @@ require 'sinatra'
 require 'json'
 require 'skuby'
 
-WHAT_I_AM = { "about" => "SMS Echo Server (using Skebby)",
-              "version" => "0.3.2", 
-              "home page" =>  "https://github.com/solyaris/SMS-Echo-Server",
-              "e-mail" => "giorgio.robino@gmail.com"
-            }  
-
-
 configure do
 
   enable :logging
@@ -16,6 +9,20 @@ configure do
   # get username and password from Environment variables
   username = ENV['SKEBBY_USERNAME']
   password = ENV['SKEBBY_PASSWORD'] 
+
+  if (username.nil? || password.nil?)
+    status_message = "error: verify Skubby credentials (environment vars unset)"
+  else
+    status_message = "up and running!"
+  end
+
+  set status: \
+    { "about" => "SMS Echo Server (using Skebby)",
+      "version" => "0.3.3", 
+      "home page" =>  "https://github.com/solyaris/SMS-Echo-Server",
+      "e-mail" => "giorgio.robino@gmail.com",
+      "status" => status_message
+    }   
 
   # Initialize Skuby
   Skuby.setup do |config|
@@ -42,6 +49,9 @@ end
 
 helpers do
 
+  #
+  # dump a Ruby hash object in a pretty printed JSON
+  #
   def to_json( dataset, pretty_generate=true )
     if !dataset #.empty? 
       return no_data!
@@ -56,8 +66,9 @@ helpers do
 
   def no_data!
     status 204
-    #to_json ({ :message => "no data" })
+    # to_json message: "no data"
   end
+
 
   #
   # echo_text
@@ -136,11 +147,11 @@ end
 
 
 get "/" do
-  to_json ( WHAT_I_AM )
+  to_json settings.status
 end
 
 get "/echoserver/skebby" do
-  to_json ( { :message => 'sorry, to be done, use POST.' } )
+  to_json message: 'sorry, to be done, use POST.'
 end
 
 post "/echoserver/skebby" do
@@ -150,9 +161,9 @@ post "/echoserver/skebby" do
 end
 
 not_found do
-  to_json ( { :message => 'This is nowhere to be found.' } )
+  to_json message: 'This is nowhere to be found.'
 end
 
 error do
-  to_json ( { :message => 'Sorry there was a nasty error - ' + env['sinatra.error'].name } )
+  to_json message: 'Sorry there was a nasty error - ' + env['sinatra.error'].name
 end

@@ -275,7 +275,8 @@ curl http://your_heroku_app_name.herokuapp.com
   "about": "SMS Echo Server (using Skebby)",
   "version": "0.3.2",
   "home page": "https://github.com/solyaris/SMS-Echo-Server",
-  "e-mail": "giorgio.robino@gmail.com"
+  "e-mail": "giorgio.robino@gmail.com",
+  "status": "up and running!"
 }
 ```
 
@@ -323,12 +324,12 @@ All in all my final vote about Skebby services is positive.
 
 ## Release Notes
 
-### v.0.3.2 (29 January 2014)
-- Data flow better explained in this README
+### v.0.3.3 
+- last update: 30 January 2014
 - To send SMS I substitute the Ruby example code supplied by Skebby website with [Skuby](https://github.com/welaika/skuby) gem.
 
-### v.0.1.1 (25 January 2014)
-- First release!
+### v.0.1.1 
+- First release, 25 January 2014
 
 
 ## Licence
