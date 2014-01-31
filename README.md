@@ -25,31 +25,32 @@ end
 
 ```
 
-     An end user, with a mobile phone 
+An end user, with a mobile phone 
                              
-       ^                | 1. send a Standard SMS with text: "TEST123 Hello World!"
-       |                | 
+       ^        | 1. send a Standard SMS with text: "TEST123 Hello World!"
+       |        | 
        | 6. receive back an echo SMS with text: "ECHO Hello World!"
-       |                | 
-       |                v
+       |        | 
+       |        v
    .-------------------------------------------.
    |                                           |
    |         SKEBBY SMS GATEWAY SERVER         |
    |                                           |
    .-------------------------------------------.
-       ^                |
-       |                | 2. HTTP POST http://a1b2c3d4.ngrok.com/echoserver/skebby
-       |                v
-       |   .----------------------------.   ^
-       |   | Company Application Server |   |  
-       |   |   == this echo server      |   |
-       |   |                            |   |
-       |   .----+-------------+----+----.   |
-       |        |             |    |        |  4.JSON response (for test/debug purposes)
-       |        |             |    +--------+
-       |        |             +-------> 3. log/store (on a database) received SMS data
+       ^        |
+       |        | 2. HTTP POST http://a1b2c3d4.ngrok.com/echoserver/skebby
+       |        | 
+       |        |                  ^
+       |        v                  | 4.JSON response (for test/debug purposes)
+       |   .-----------------------+----.  
+       |   | Company Application Server |     
+       |   |     (this echo server)     |   
+       |   |                            |   
+       |   .----+------------------+----.   
+       |        |                  |   
+       |        |                  +-----> 3. log (+DBstore) received SMS data 
        +--------+
-     5. echo back a SMS ( via HTTP POST http://gateway.skebby.it/api/send/... )
+  5. echo back a SMS ( via HTTP POST http://gateway.skebby.it/api/send/... )
 
 ```
 
